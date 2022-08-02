@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_them_color"
+        android:paddingTop="@dimen/safe_margin_top">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_welcome_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_welcome"
+            tools:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rlt_function_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_container_view"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_above="@id/bottom_navigation"
+                android:layout_alignParentTop="true"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/main_nav" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/main_them_color"
+                android:padding="10dp"
+                app:menu="@menu/main_menu" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
