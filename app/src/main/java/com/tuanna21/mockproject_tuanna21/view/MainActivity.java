@@ -1,10 +1,13 @@
 package com.tuanna21.mockproject_tuanna21.view;
 
+import android.Manifest;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,17 +18,33 @@ import androidx.navigation.ui.NavigationUI;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
-import com.tuanna21.mockproject_tuanna21.model.IntroActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
+import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
-import javax.inject.Inject;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class MainActivity extends BaseActivity {
+    private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
+    private final ActivityResultLauncher<String> mRequestPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if (result) {
+                        mViewModel.requestSyncSongData(MainActivity.this);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+                    }
+                    hideSplash();
+                }
 
-    private IntroActivityViewModel mViewModel;
+            }
+    );
+
+    private void hideSplash() {
+        mBinding.ivWelcomeImage.setVisibility(View.GONE);
+        mBinding.rltFunctionLayout.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,19 +68,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void setupAction() {
-        HandlerThread mHandlerThread = new HandlerThread("changing_layout");
-        mHandlerThread.start();
-        Handler mHandler = new Handler(mHandlerThread.getLooper());
-        mHandler.postDelayed(() -> {
-            runOnUiThread(() -> {
-                mBinding.ivWelcomeImage.setVisibility(View.GONE);
-                mBinding.rltFunctionLayout.setVisibility(View.VISIBLE);
-            });
-        }, 2500);
+        if (!mViewModel.isFirstTimeInit(this)) {
+//            mViewModel.loadDataFromDB();
+        } else if (!mViewModel.checkPermission(this)) {
+            mRequestPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+        } else {
+            mViewModel.requestSyncSongData(this);
+        }
     }
 
     @Override
     protected void setupViewModel() {
-//        mViewModel = new ViewModelProvider(this).get(IntroActivityViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        mViewModel.setScreenHeight(new ScreenUtils().getScreenHeight(this));
+        mViewModel.setScreenWidth(new ScreenUtils().getScreenWidth(this));
     }
 }

@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_them_color"
+        android:background="@color/main_theme_color"
         android:paddingTop="@dimen/safe_margin_top">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -14,7 +14,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="visible"
             app:srcCompat="@drawable/ic_welcome"
             tools:visibility="gone" />
 
@@ -22,7 +21,6 @@
             android:id="@+id/rlt_function_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             tools:visibility="visible">
 
             <androidx.fragment.app.FragmentContainerView
@@ -40,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/main_them_color"
+                android:background="@color/main_theme_color"
                 android:padding="10dp"
                 app:menu="@menu/main_menu" />
         </RelativeLayout>
