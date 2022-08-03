@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_theme_color">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/ic_logo_splash_screen" />
+
+        <LinearLayout
+            android:id="@+id/app_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_theme"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="7dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_song_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="17sp"
+                    tools:text="123" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_song"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_song_number"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/song"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="7dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_album_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="17sp"
+                    tools:text="123" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_album"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_album_number"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/albums"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="7dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_artist_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="17sp"
+                    tools:text="123" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_artist_number"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/artists"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

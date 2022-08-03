@@ -21,8 +21,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupViewModel();
         setupNavigation();
         setupAction();
+        setupToolbar();
+        setupNavigationDrawer();
 
     }
+
+    protected abstract void setupToolbar();
+
+    protected abstract void setupNavigationDrawer();
 
     protected abstract void setupNavigation();
 

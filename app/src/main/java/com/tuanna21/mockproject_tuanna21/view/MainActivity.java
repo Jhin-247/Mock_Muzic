@@ -2,29 +2,34 @@ package com.tuanna21.mockproject_tuanna21.view;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
+import com.tuanna21.mockproject_tuanna21.adapter.navigation.NavigationAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private MainActivityViewModel mViewModel;
-    private ActivityMainBinding mBinding;
     private final ActivityResultLauncher<String> mRequestPermission = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
@@ -35,21 +40,43 @@ public class MainActivity extends BaseActivity {
                     } else {
                         Toast.makeText(MainActivity.this, "Please allow permission!", Toast.LENGTH_SHORT).show();
                     }
-                    hideSplash();
                 }
 
             }
     );
-
-    private void hideSplash() {
-        mBinding.ivWelcomeImage.setVisibility(View.GONE);
-        mBinding.rltFunctionLayout.setVisibility(View.VISIBLE);
-    }
+    private ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settingStatusBarTransparent();
+//        settingStatusBarTransparent();
+
+//        SongUtils.getFileListInFolder(this);
+    }
+
+    @Override
+    protected void setupToolbar() {
+        setSupportActionBar(mBinding.toolbar.toolbar);
+        mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
+            mBinding.drawerLayout.openDrawer(GravityCompat.START);
+        });
+    }
+
+    @Override
+    protected void setupNavigationDrawer() {
+        NavigationAdapter mNavigationAdapter = new NavigationAdapter(mViewModel.getNavigationItems());
+        mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.rcvNavigation.setAdapter(mNavigationAdapter);
+        mBinding.navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mBinding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -82,5 +109,10 @@ public class MainActivity extends BaseActivity {
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         mViewModel.setScreenHeight(new ScreenUtils().getScreenHeight(this));
         mViewModel.setScreenWidth(new ScreenUtils().getScreenWidth(this));
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
