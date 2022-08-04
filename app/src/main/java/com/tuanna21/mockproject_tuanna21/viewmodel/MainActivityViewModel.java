@@ -6,7 +6,6 @@ import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.HAS_D
 import android.Manifest;
 import android.app.Application;
 import android.content.Context;
-import android.view.View;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
@@ -25,10 +24,10 @@ import java.util.List;
 
 
 public class MainActivityViewModel extends AndroidViewModel {
+    private final SongRepository mSongRepository;
     private LiveData<List<Song>> mSongs;
     private int mScreenHeight;
     private int mScreenWidth;
-    private final SongRepository mSongRepository;
 
 
     public MainActivityViewModel(Application application) {
@@ -77,15 +76,27 @@ public class MainActivityViewModel extends AndroidViewModel {
         SharedPreferencesUtils.getInstance(context).saveBoolean(HAS_DATABASE, true);
     }
 
-    public List<NavigationItem> getNavigationItems(){
+    public List<NavigationItem> getNavigationItems() {
         List<NavigationItem> navigationItems = new ArrayList<>();
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.themes),R.drawable.ic_theme));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.ringtone_cutter),R.drawable.ic_rington_cutter));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.sleep_timer),R.drawable.ic_sleep_timer));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.equaliser),R.drawable.ic_equaliser));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.driver_mode),R.drawable.ic_driver_mode));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.hidden_folder),R.drawable.ic_hidden_folder));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.scan_media),R.drawable.ic_logo_splash_screen));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.themes), R.drawable.ic_theme));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.ringtone_cutter), R.drawable.ic_rington_cutter));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.sleep_timer), R.drawable.ic_sleep_timer));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.equaliser), R.drawable.ic_equaliser));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.driver_mode), R.drawable.ic_driver_mode));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.hidden_folder), R.drawable.ic_hidden_folder));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.scan_media), R.drawable.ic_scan));
+
+        return navigationItems;
+    }
+
+    public List<NavigationItem> getSettingItems() {
+        List<NavigationItem> navigationItems = new ArrayList<>();
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.display), R.drawable.ic_display));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.audio), R.drawable.ic_audio));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.headset), R.drawable.ic_headset));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.lock_screen), R.drawable.ic_lock_screen));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.advanced), R.drawable.ic_advanced));
+        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.other), R.drawable.ic_other));
 
         return navigationItems;
     }

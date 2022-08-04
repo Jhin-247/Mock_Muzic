@@ -24,11 +24,14 @@ import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.adapter.navigation.NavigationAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
+import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        ToolbarListener {
     private MainActivityViewModel mViewModel;
     private final ActivityResultLauncher<String> mRequestPermission = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
@@ -48,10 +51,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void setupToolbar() {
-        setSupportActionBar(mBinding.toolbar.toolbar);
-        mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
-            mBinding.drawerLayout.openDrawer(GravityCompat.START);
-        });
+//        setSupportActionBar(mBinding.toolbar.toolbar);
+//        mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
+//            mBinding.drawerLayout.openDrawer(GravityCompat.START);
+//        });
     }
 
     @Override
@@ -111,5 +114,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+    @Override
+    public void openDrawer() {
+        mBinding.drawerLayout.openDrawer(GravityCompat.START);
     }
 }

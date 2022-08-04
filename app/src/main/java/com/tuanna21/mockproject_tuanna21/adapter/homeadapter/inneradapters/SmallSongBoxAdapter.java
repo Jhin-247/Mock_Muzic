@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.adapter.inneradapters;
+package com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;

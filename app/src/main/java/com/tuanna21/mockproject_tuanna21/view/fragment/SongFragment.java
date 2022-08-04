@@ -18,6 +18,11 @@ public class SongFragment extends BaseFragment {
     private FragmentSongBinding mBinding;
 
     @Override
+    protected void setupToolbar() {
+
+    }
+
+    @Override
     protected void initData() {
     }
 

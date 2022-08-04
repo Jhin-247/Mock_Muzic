@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.inneradapters.FullScreenBoxAdapter;
-import com.tuanna21.mockproject_tuanna21.adapter.inneradapters.SmallSongBoxAdapter;
+import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.FullScreenBoxAdapter;
+import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.SmallSongBoxAdapter;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
 import com.tuanna21.mockproject_tuanna21.db.model.Song;
 

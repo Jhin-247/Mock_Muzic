@@ -1,15 +1,12 @@
-package com.tuanna21.mockproject_tuanna21.adapter.inneradapters;
+package com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters;
 
 import android.annotation.SuppressLint;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeBinding;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemRecentPlayBinding;
 import com.tuanna21.mockproject_tuanna21.db.model.Song;
 

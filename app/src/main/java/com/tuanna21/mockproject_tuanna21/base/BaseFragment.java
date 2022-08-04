@@ -19,8 +19,11 @@ public abstract class BaseFragment extends Fragment {
         initViewModel();
         initData();
         initYourView();
+        setupToolbar();
         return getViewDataBinding().getRoot();
     }
+
+    protected abstract void setupToolbar();
 
     protected abstract void initData();
 

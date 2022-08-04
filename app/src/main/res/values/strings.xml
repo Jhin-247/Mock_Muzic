@@ -25,4 +25,11 @@
     <string name="close_des">Close</string>
     <string name="open_des">Open</string>
 
+    <string name="display">Display</string>
+    <string name="audio">Audio</string>
+    <string name="headset">Headset</string>
+    <string name="lock_screen">Lock screen</string>
+    <string name="advanced">Advanced</string>
+    <string name="other">Other</string>
+
 </resources>

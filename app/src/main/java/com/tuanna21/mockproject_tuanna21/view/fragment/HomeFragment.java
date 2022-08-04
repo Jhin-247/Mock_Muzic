@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.HomeMainAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentHomeBinding;
+import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
+import com.tuanna21.mockproject_tuanna21.view.MainActivity;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 public class HomeFragment extends BaseFragment {
     private HomeMainAdapter mAdapter;
     private FragmentHomeBinding mBinding;
     private MainActivityViewModel mViewModel;
+    private ToolbarListener mToolbarListener;
 
     @Nullable
     @Override
@@ -28,7 +31,14 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
+    protected void setupToolbar() {
+
+    }
+
+    @Override
     protected void initData() {
+        mToolbarListener = (MainActivity) requireActivity();
+
         mAdapter = new HomeMainAdapter(mViewModel.getScreenWidth());
         mBinding.rcvMainData.setLayoutManager(new LinearLayoutManager(requireContext()));
         mBinding.rcvMainData.setAdapter(mAdapter);
@@ -53,6 +63,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initYourView() {
-
+        mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
+            mToolbarListener.openDrawer();
+        });
     }
 }

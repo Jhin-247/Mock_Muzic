@@ -8,12 +8,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.tuanna21.mockproject_tuanna21.adapter.navigation.NavigationAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSettingBinding;
+import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
+import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 public class SettingFragment extends BaseFragment {
     private FragmentSettingBinding mBinding;
+    private NavigationAdapter mAdapter;
+    private MainActivityViewModel mViewModel;
 
     @Nullable
     @Override
@@ -22,8 +29,15 @@ public class SettingFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void setupToolbar() {
+        mBinding.toolbar.etSearch.setVisibility(View.GONE);
+        mBinding.toolbar.tvTitle.setVisibility(View.VISIBLE);
+        mBinding.toolbar.tvTitle.setText("Setting");
+    }
 
+    @Override
+    protected void initData() {
+        mAdapter = new NavigationAdapter(mViewModel.getSettingItems());
     }
 
     @Override
@@ -33,7 +47,7 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-
+        mViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
     }
 
     @Override
@@ -43,6 +57,8 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected void initYourView() {
-
+        mBinding.rcvSetting.setLayoutManager(new LinearLayoutManager(requireContext()));
+        mBinding.rcvSetting.addItemDecoration(new VerticalSpaceItemDecoration(35));
+        mBinding.rcvSetting.setAdapter(mAdapter);
     }
 }
