@@ -18,6 +18,7 @@ public abstract class BaseFragment extends Fragment {
         initBinding(inflater,container);
         initViewModel();
         initData();
+        initYourView();
         return getViewDataBinding().getRoot();
     }
 
@@ -28,4 +29,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initViewModel();
 
     protected abstract void initBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
+
+    protected abstract void initYourView();
 }

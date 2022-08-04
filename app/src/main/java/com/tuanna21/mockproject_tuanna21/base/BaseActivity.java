@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
@@ -23,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupAction();
         setupToolbar();
         setupNavigationDrawer();
-
+        initYourView();
     }
 
     protected abstract void setupToolbar();
@@ -37,6 +39,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void setupAction();
 
     protected abstract void setupViewModel();
+
+    protected abstract void initYourView();
 
     protected void setupFullScreen() {
         getWindow().setFlags(
@@ -56,5 +60,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         //setStatusBarTranslucent(true);
+    }
+
+    protected int getScreenHeight(){
+        return new ScreenUtils().getScreenHeight(this);
+    }
+
+    protected int getScreenWidth(){
+        return new ScreenUtils().getScreenWidth(this);
     }
 }

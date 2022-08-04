@@ -19,7 +19,6 @@ public class SongFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
     }
 
     @Override
@@ -29,11 +28,16 @@ public class SongFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-
+        mViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
     }
 
     @Override
     protected void initBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         mBinding = FragmentSongBinding.inflate(inflater, container, false);
+    }
+
+    @Override
+    protected void initYourView() {
+
     }
 }

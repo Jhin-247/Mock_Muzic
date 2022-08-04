@@ -50,4 +50,9 @@ public class HomeFragment extends BaseFragment {
     protected void initBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
     }
+
+    @Override
+    protected void initYourView() {
+
+    }
 }

@@ -47,14 +47,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ActivityMainBinding mBinding;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        settingStatusBarTransparent();
-
-//        SongUtils.getFileListInFolder(this);
-    }
-
-    @Override
     protected void setupToolbar() {
         setSupportActionBar(mBinding.toolbar.toolbar);
         mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
@@ -109,6 +101,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         mViewModel.setScreenHeight(new ScreenUtils().getScreenHeight(this));
         mViewModel.setScreenWidth(new ScreenUtils().getScreenWidth(this));
+    }
+
+    @Override
+    protected void initYourView() {
+
     }
 
     @Override

@@ -40,4 +40,9 @@ public class SettingFragment extends BaseFragment {
     protected void initBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         mBinding = FragmentSettingBinding.inflate(inflater, container, false);
     }
+
+    @Override
+    protected void initYourView() {
+
+    }
 }
