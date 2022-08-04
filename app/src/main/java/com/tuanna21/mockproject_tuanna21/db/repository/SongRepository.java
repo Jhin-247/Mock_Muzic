@@ -36,4 +36,12 @@ public class SongRepository {
         return mSongs;
     }
 
+    public void updateSong(Song song){
+        mHandler.post(() -> mSongDao.updateSong(song));
+    }
+
+    public void deleteSong(Song song){
+        mHandler.post(() -> mSongDao.deleteSong(song));
+    }
+
 }

@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.tuanna21.mockproject_tuanna21.db.model.Song;
 
@@ -20,5 +21,8 @@ public interface SongDao {
 
     @Query("SELECT * FROM table_song")
     LiveData<List<Song>> getAllSongs();
+
+    @Update
+    void updateSong(Song song);
 
 }

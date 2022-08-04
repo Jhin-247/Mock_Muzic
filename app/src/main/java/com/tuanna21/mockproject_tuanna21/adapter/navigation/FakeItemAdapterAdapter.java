@@ -12,10 +12,10 @@ import com.tuanna21.mockproject_tuanna21.db.model.NavigationItem;
 
 import java.util.List;
 
-public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.NavigationItemHolder> {
+public class FakeItemAdapterAdapter extends RecyclerView.Adapter<FakeItemAdapterAdapter.NavigationItemHolder> {
     private final List<NavigationItem> mNavigationItemList;
 
-    public NavigationAdapter(List<NavigationItem> mNavigationItemList) {
+    public FakeItemAdapterAdapter(List<NavigationItem> mNavigationItemList) {
         this.mNavigationItemList = mNavigationItemList;
     }
 

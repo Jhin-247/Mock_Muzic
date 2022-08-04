@@ -17,6 +17,16 @@ public class Song implements Serializable {
     private long albumId;
     private String album;
 
+    public long getLastTimePlayed() {
+        return lastTimePlayed;
+    }
+
+    public void setLastTimePlayed(long lastTimePlayed) {
+        this.lastTimePlayed = lastTimePlayed;
+    }
+
+    private long lastTimePlayed;
+
     public String getAlbum() {
         return album;
     }

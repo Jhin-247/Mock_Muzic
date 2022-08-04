@@ -31,5 +31,6 @@
     <string name="lock_screen">Lock screen</string>
     <string name="advanced">Advanced</string>
     <string name="other">Other</string>
+    <string name="empty_data">Please allow first time permission</string>
 
 </resources>

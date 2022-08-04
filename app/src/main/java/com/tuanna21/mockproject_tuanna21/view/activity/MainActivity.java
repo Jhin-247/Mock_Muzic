@@ -1,8 +1,6 @@
-package com.tuanna21.mockproject_tuanna21.view;
+package com.tuanna21.mockproject_tuanna21.view.activity;
 
 import android.Manifest;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -10,7 +8,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.navigation.NavigationAdapter;
+import com.tuanna21.mockproject_tuanna21.adapter.navigation.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
@@ -41,7 +38,7 @@ public class MainActivity extends BaseActivity implements
                     if (result) {
                         mViewModel.requestSyncSongData(MainActivity.this);
                     } else {
-                        Toast.makeText(MainActivity.this, "Please allow permission!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.empty_data), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -51,17 +48,13 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void setupToolbar() {
-//        setSupportActionBar(mBinding.toolbar.toolbar);
-//        mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
-//            mBinding.drawerLayout.openDrawer(GravityCompat.START);
-//        });
     }
 
     @Override
     protected void setupNavigationDrawer() {
-        NavigationAdapter mNavigationAdapter = new NavigationAdapter(mViewModel.getNavigationItems());
+        FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(mViewModel.getNavigationItems());
         mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.rcvNavigation.setAdapter(mNavigationAdapter);
+        mBinding.rcvNavigation.setAdapter(mFakeItemAdapterAdapter);
         mBinding.navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -90,12 +83,8 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void setupAction() {
-        if (!mViewModel.isFirstTimeInit(this)) {
-//            mViewModel.loadDataFromDB();
-        } else if (!mViewModel.checkPermission(this)) {
+        if (mViewModel.isFirstTimeInit(this) && !mViewModel.checkPermission(this)) {
             mRequestPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-        } else {
-            mViewModel.requestSyncSongData(this);
         }
     }
 

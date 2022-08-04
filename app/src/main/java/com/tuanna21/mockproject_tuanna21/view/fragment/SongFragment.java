@@ -1,13 +1,18 @@
 package com.tuanna21.mockproject_tuanna21.view.fragment;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.tuanna21.mockproject_tuanna21.R;
+import com.tuanna21.mockproject_tuanna21.adapter.viewpageradapter.SongPagerAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSongBinding;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
@@ -16,14 +21,18 @@ public class SongFragment extends BaseFragment {
     private static final String TAG = SongFragment.class.getSimpleName();
     private MainActivityViewModel mViewModel;
     private FragmentSongBinding mBinding;
+    private SongPagerAdapter mAdapter;
 
     @Override
     protected void setupToolbar() {
-
+        mBinding.toolbar.tvTitle.setVisibility(View.VISIBLE);
+        mBinding.toolbar.tvTitle.setText("Song");
+        mBinding.toolbar.etSearch.setVisibility(View.GONE);
     }
 
     @Override
     protected void initData() {
+        mAdapter = new SongPagerAdapter(requireActivity());
     }
 
     @Override
@@ -43,6 +52,9 @@ public class SongFragment extends BaseFragment {
 
     @Override
     protected void initYourView() {
-
+        mBinding.viewPager.setAdapter(mAdapter);
+        new TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager, (tab, position) -> {
+            tab.setText(mAdapter.getTitleAt(position));
+        }).attach();
     }
 }

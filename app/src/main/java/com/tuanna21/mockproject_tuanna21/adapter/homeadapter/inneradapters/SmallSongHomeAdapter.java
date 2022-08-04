@@ -14,11 +14,11 @@ import com.tuanna21.mockproject_tuanna21.db.model.Song;
 
 import java.util.List;
 
-public class SmallSongBoxAdapter extends RecyclerView.Adapter<SmallSongBoxAdapter.HotHolder> {
+public class SmallSongHomeAdapter extends RecyclerView.Adapter<SmallSongHomeAdapter.HotHolder> {
     private List<Song> mSongs;
     private int mScreenWidth;
 
-    public SmallSongBoxAdapter() {
+    public SmallSongHomeAdapter() {
     }
 
     public void setScreenWidth(int screenWidth) {

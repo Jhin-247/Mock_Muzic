@@ -12,11 +12,11 @@ import com.tuanna21.mockproject_tuanna21.db.model.Song;
 
 import java.util.List;
 
-public class FullScreenBoxAdapter extends RecyclerView.Adapter<FullScreenBoxAdapter.FullScreenHolder> {
+public class FullScreenHomeAdapter extends RecyclerView.Adapter<FullScreenHomeAdapter.FullScreenHolder> {
 
     private List<Song> mSongList;
 
-    public FullScreenBoxAdapter(){
+    public FullScreenHomeAdapter(){
     }
 
     @SuppressLint("NotifyDataSetChanged")

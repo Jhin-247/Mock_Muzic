@@ -15,7 +15,7 @@ import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.HomeMainAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentHomeBinding;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
-import com.tuanna21.mockproject_tuanna21.view.MainActivity;
+import com.tuanna21.mockproject_tuanna21.view.activity.MainActivity;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 public class HomeFragment extends BaseFragment {

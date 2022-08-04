@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.tuanna21.mockproject_tuanna21.adapter.navigation.NavigationAdapter;
+import com.tuanna21.mockproject_tuanna21.adapter.navigation.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSettingBinding;
 import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
@@ -19,7 +19,7 @@ import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 public class SettingFragment extends BaseFragment {
     private FragmentSettingBinding mBinding;
-    private NavigationAdapter mAdapter;
+    private FakeItemAdapterAdapter mAdapter;
     private MainActivityViewModel mViewModel;
 
     @Nullable
@@ -37,7 +37,7 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mAdapter = new NavigationAdapter(mViewModel.getSettingItems());
+        mAdapter = new FakeItemAdapterAdapter(mViewModel.getSettingItems());
     }
 
     @Override

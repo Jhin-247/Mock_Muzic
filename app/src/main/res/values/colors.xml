@@ -14,4 +14,8 @@
     <color name="sub_text_color">#585A66</color>
     <color name="image_view_border_color">#1CFFFFFF</color>
 
+    <color name="text_selected">#D9519D</color>
+
+
+
 </resources>

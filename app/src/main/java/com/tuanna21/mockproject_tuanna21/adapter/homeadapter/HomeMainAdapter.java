@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.FullScreenBoxAdapter;
-import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.SmallSongBoxAdapter;
+import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.FullScreenHomeAdapter;
+import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.SmallSongHomeAdapter;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
 import com.tuanna21.mockproject_tuanna21.db.model.Song;
 
@@ -23,13 +23,13 @@ public class HomeMainAdapter extends RecyclerView.Adapter<HomeMainAdapter.HomeMa
     private static final int TYPE_HOT = 1;
     private static final int TYPE_PLAYLIST = 2;
     private static final int TYPE_RECENT_PLAYED = 3;
-    private final SmallSongBoxAdapter mSmallAdapter;
-    private final FullScreenBoxAdapter mFullScreenAdapter;
+    private final SmallSongHomeAdapter mSmallAdapter;
+    private final FullScreenHomeAdapter mFullScreenAdapter;
     private List<Song> mSongList;
 
     public HomeMainAdapter(int width) {
-        mSmallAdapter = new SmallSongBoxAdapter();
-        mFullScreenAdapter = new FullScreenBoxAdapter();
+        mSmallAdapter = new SmallSongHomeAdapter();
+        mFullScreenAdapter = new FullScreenHomeAdapter();
         mSmallAdapter.setScreenWidth(width);
     }
 
