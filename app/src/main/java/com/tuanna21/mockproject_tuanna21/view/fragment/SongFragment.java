@@ -6,15 +6,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.adapter.viewpageradapter.SongPagerAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSongBinding;
+import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 public class SongFragment extends BaseFragment {
@@ -56,5 +56,21 @@ public class SongFragment extends BaseFragment {
         new TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager, (tab, position) -> {
             tab.setText(mAdapter.getTitleAt(position));
         }).attach();
+        if (calculateTabWidth(mBinding.tabLayout) < new ScreenUtils().getScreenWidth(requireActivity())) {
+            mBinding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        } else {
+            mBinding.tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
+    }
+
+    //todo tính độ dài của tablayout và kéo dài theo màn hình
+    private int calculateTabWidth(TabLayout tabLayout) {
+        int tabWidth = 0;
+        for (int i = 0; i < tabLayout.getChildCount(); i++) {
+            final View view = tabLayout.getChildAt(i);
+            view.measure(0, 0);
+            tabWidth += view.getMeasuredWidth();
+        }
+        return tabWidth;
     }
 }

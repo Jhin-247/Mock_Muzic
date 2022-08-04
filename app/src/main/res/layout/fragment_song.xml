@@ -16,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
+            app:tabGravity="fill"
             app:tabIndicator="@drawable/ic_indicator"
             app:tabIndicatorColor="@null"
-            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/text_selected"
             app:tabTextAppearance="@style/tab_layout_text_style"
             app:tabTextColor="@color/white">
