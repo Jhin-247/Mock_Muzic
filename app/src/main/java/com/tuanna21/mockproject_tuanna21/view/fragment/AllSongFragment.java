@@ -1,40 +1,26 @@
 package com.tuanna21.mockproject_tuanna21.view.fragment;
 
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.ViewDataBinding;
-
-import com.tuanna21.mockproject_tuanna21.adapter.viewpageradapter.SongPagerAdapter;
+import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAllSongBinding;
+import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
-public class AllSongFragment extends BaseFragment {
-    private FragmentAllSongBinding mBinding;
-
-    @Override
-    protected void setupToolbar() {
-    }
+public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding> {
 
     @Override
-    protected void initData() {
-    }
-
-    @Override
-    protected ViewDataBinding getViewDataBinding() {
-        return mBinding;
+    protected void initListener() {
     }
 
     @Override
     protected void initViewModel() {
-
+        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
     }
 
     @Override
-    protected void initBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        mBinding = FragmentAllSongBinding.inflate(inflater, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_all_song;
     }
 
     @Override

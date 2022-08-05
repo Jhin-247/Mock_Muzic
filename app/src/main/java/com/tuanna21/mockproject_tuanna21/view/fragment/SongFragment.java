@@ -1,57 +1,49 @@
 package com.tuanna21.mockproject_tuanna21.view.fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.adapter.viewpageradapter.SongPagerAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSongBinding;
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
-public class SongFragment extends BaseFragment {
-    private static final String TAG = SongFragment.class.getSimpleName();
-    private MainActivityViewModel mViewModel;
-    private FragmentSongBinding mBinding;
+public class SongFragment extends BaseFragment<MainActivityViewModel, FragmentSongBinding> {
     private SongPagerAdapter mAdapter;
 
-    @Override
-    protected void setupToolbar() {
+    private void setupToolbar() {
         mBinding.toolbar.tvTitle.setVisibility(View.VISIBLE);
         mBinding.toolbar.tvTitle.setText("Song");
         mBinding.toolbar.etSearch.setVisibility(View.GONE);
     }
 
     @Override
-    protected void initData() {
-        mAdapter = new SongPagerAdapter(requireActivity());
-    }
-
-    @Override
-    protected ViewDataBinding getViewDataBinding() {
-        return mBinding;
+    protected void initListener() {
+        mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
+            mToolbarListener.openDrawer();
+        });
     }
 
     @Override
     protected void initViewModel() {
-        mViewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+
     }
 
+
     @Override
-    protected void initBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        mBinding = FragmentSongBinding.inflate(inflater, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_song;
     }
 
     @Override
     protected void initYourView() {
+        setupToolbar();
+
+        mAdapter = new SongPagerAdapter(mActivity);
+
         mBinding.viewPager.setAdapter(mAdapter);
         new TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager, (tab, position) -> {
             tab.setText(mAdapter.getTitleAt(position));
