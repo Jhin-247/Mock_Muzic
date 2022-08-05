@@ -15,10 +15,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
 
-public abstract class BaseFragment<V extends ViewModel, BD extends ViewDataBinding> extends Fragment {
+public abstract class BaseFragment<VM extends ViewModel, VB extends ViewDataBinding> extends Fragment {
 
-    protected V mViewModel;
-    protected BD mBinding;
+    protected VM mViewModel;
+    protected VB mBinding;
     protected ToolbarListener mToolbarListener;
     protected BaseActivity mActivity;
 
