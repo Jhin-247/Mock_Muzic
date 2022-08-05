@@ -1,12 +1,9 @@
 package com.tuanna21.mockproject_tuanna21.view.activity;
 
-import android.Manifest;
-import android.view.MenuItem;
-import android.widget.Toast;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -22,7 +19,6 @@ import com.tuanna21.mockproject_tuanna21.adapter.navigation.FakeItemAdapterAdapt
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
-import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
 
 
@@ -30,28 +26,9 @@ public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         ToolbarListener {
     private MainActivityViewModel mViewModel;
-    private final ActivityResultLauncher<String> mRequestPermission = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean result) {
-                    if (result) {
-                        mViewModel.requestSyncSongData(MainActivity.this);
-                    } else {
-                        Toast.makeText(MainActivity.this, getString(R.string.empty_data), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-    );
     private ActivityMainBinding mBinding;
 
-    @Override
-    protected void setupToolbar() {
-    }
-
-    @Override
-    protected void setupNavigationDrawer() {
+    private void setupNavigationDrawer() {
         FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(mViewModel.getNavigationItems());
         mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
         mBinding.rcvNavigation.setAdapter(mFakeItemAdapterAdapter);
@@ -67,8 +44,7 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    @Override
-    protected void setupNavigation() {
+    private void setupNavigation() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         if (navHostFragment != null) {
             NavController navController = navHostFragment.getNavController();
@@ -83,21 +59,30 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void setupAction() {
-        if (mViewModel.isFirstTimeInit(this) && !mViewModel.checkPermission(this)) {
-            mRequestPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (!hasDatabase() && !checkPermission(READ_EXTERNAL_STORAGE)) {
+            requestPermission(READ_EXTERNAL_STORAGE);
+        } else if (!hasDatabase() && checkPermission(READ_EXTERNAL_STORAGE)) {
+            mViewModel.requestSyncSongData(this);
         }
+    }
+
+    @Override
+    protected void onPermissionRequested(Boolean result) {
+        if (result)
+            mViewModel.requestSyncSongData(this);
     }
 
     @Override
     protected void setupViewModel() {
         mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        mViewModel.setScreenHeight(new ScreenUtils().getScreenHeight(this));
-        mViewModel.setScreenWidth(new ScreenUtils().getScreenWidth(this));
+        mViewModel.setScreenHeight(getScreenHeight());
+        mViewModel.setScreenWidth(getScreenWidth());
     }
 
     @Override
     protected void initYourView() {
-
+        setupNavigation();
+        setupNavigationDrawer();
     }
 
     @Override

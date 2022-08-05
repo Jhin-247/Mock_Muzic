@@ -1,38 +1,55 @@
 package com.tuanna21.mockproject_tuanna21.base;
 
-import android.graphics.Color;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
+import com.tuanna21.mockproject_tuanna21.utils.SharedPreferencesUtils;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+
+    private final ActivityResultLauncher<String> mRequestPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            this::onPermissionRequested
+    );
+
+    protected void onPermissionRequested(Boolean result) {
+    }
+
+    protected void requestPermission(String permission) {
+        mRequestPermission.launch(permission);
+    }
+
+    protected boolean checkPermission(String permission) {
+        return ContextCompat.checkSelfPermission(
+                getApplicationContext(),
+                permission
+        ) == PERMISSION_GRANTED;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
         setupDataBinding();
         setupViewModel();
-        setupNavigation();
         setupAction();
-        setupToolbar();
-        setupNavigationDrawer();
         initYourView();
     }
-
-    protected abstract void setupToolbar();
-
-    protected abstract void setupNavigationDrawer();
-
-    protected abstract void setupNavigation();
 
     protected abstract void setupDataBinding();
 
@@ -49,24 +66,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         );
     }
 
-    protected void settingStatusBarTransparent() {
-        getWindow().setNavigationBarColor(Color.BLACK);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        );
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        //setStatusBarTranslucent(true);
-    }
-
-    protected int getScreenHeight(){
+    protected int getScreenHeight() {
         return new ScreenUtils().getScreenHeight(this);
     }
 
-    protected int getScreenWidth(){
+    protected int getScreenWidth() {
         return new ScreenUtils().getScreenWidth(this);
+    }
+
+    protected boolean hasDatabase() {
+        return SharedPreferencesUtils.getInstance(getApplicationContext()).hasDatabaseData();
     }
 }

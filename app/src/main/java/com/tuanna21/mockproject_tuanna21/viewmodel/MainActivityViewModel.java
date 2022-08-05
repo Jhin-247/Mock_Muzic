@@ -6,6 +6,7 @@ import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.HAS_D
 import android.Manifest;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
@@ -69,6 +70,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public void requestSyncSongData(Context context) {
+        Log.i("requestSyncSongData", "requestSyncSongData: " + context);
         List<Song> songList = SongUtils.getAllSongFromDevice(context);
         for (Song song : songList) {
             mSongRepository.insertSong(song);
