@@ -21,7 +21,7 @@ public class SettingFragment extends BaseFragment<MainActivityViewModel, Fragmen
     private void setupToolbar() {
         mBinding.toolbar.etSearch.setVisibility(View.GONE);
         mBinding.toolbar.tvTitle.setVisibility(View.VISIBLE);
-        mBinding.toolbar.tvTitle.setText("Setting");
+        mBinding.toolbar.tvTitle.setText(mActivity.getString(R.string.setting));
     }
 
 
