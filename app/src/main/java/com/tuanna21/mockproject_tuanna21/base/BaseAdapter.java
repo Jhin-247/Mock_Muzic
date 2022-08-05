@@ -8,15 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseAdapter<VB extends ViewDataBinding, M> extends RecyclerView.Adapter<BaseHolder<VB, M>> {
 
     private List<M> mData;
-    private Activity mActivity;
+    protected Activity mActivity;
 
     public BaseAdapter(Activity mActivity) {
         this.mActivity = mActivity;
+        mData = new ArrayList<>();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -40,9 +42,10 @@ public abstract class BaseAdapter<VB extends ViewDataBinding, M> extends Recycle
 
     @Override
     public void onBindViewHolder(@NonNull BaseHolder<VB, M> holder, int position) {
-        M object = getItemAt(position);
-        holder.bind(object);
+        bindView(holder.getBinding(), position);
     }
+
+    protected abstract void bindView(VB binding, int position);
 
     @Override
     public int getItemCount() {
