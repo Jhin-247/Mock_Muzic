@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
+import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 
@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements
             NavController navController = navHostFragment.getNavController();
             NavigationUI.setupWithNavController(mBinding.bottomNavigation, navController);
         }
+        mBinding.bottomNavigation.setItemIconTintList(null);
     }
 
     @Override

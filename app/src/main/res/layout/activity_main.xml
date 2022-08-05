@@ -34,6 +34,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/main_theme_color"
                 android:padding="10dp"
+                app:itemTextColor="@drawable/bottom_nav_text_color"
                 app:menu="@menu/main_menu" />
         </RelativeLayout>
 
