@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.tuanna21.mockproject_tuanna21.view.fragment.HomeFragment"
+        android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/songFragment"
-        android:name="com.tuanna21.mockproject_tuanna21.view.fragment.SongFragment"
+        android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.SongFragment"
         android:label="fragment_song"
         tools:layout="@layout/fragment_song" />
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.tuanna21.mockproject_tuanna21.view.fragment.SettingFragment"
+        android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.settingfragment.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>

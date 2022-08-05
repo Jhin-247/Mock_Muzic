@@ -1,14 +1,14 @@
-package com.tuanna21.mockproject_tuanna21.view.fragment;
+package com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.HomeMainAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.HomeMainAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentHomeBinding;
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
-import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 public class HomeFragment extends BaseFragment<MainActivityViewModel, FragmentHomeBinding> {
     private HomeMainAdapter mAdapter;

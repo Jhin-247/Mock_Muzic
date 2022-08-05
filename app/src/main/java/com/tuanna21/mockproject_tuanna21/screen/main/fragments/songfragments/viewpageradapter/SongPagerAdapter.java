@@ -1,11 +1,11 @@
-package com.tuanna21.mockproject_tuanna21.adapter.viewpageradapter;
+package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.viewpageradapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.tuanna21.mockproject_tuanna21.view.fragment.AllSongFragment;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.AllSongFragment;
 
 public class SongPagerAdapter extends FragmentStateAdapter {
 

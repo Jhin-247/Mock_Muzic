@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.adapter.homeadapter;
+package com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.FullScreenHomeAdapter;
-import com.tuanna21.mockproject_tuanna21.adapter.homeadapter.inneradapters.SmallSongHomeAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.FullScreenHomeAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.SmallSongHomeAdapter;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
 import com.tuanna21.mockproject_tuanna21.db.model.Song;
 

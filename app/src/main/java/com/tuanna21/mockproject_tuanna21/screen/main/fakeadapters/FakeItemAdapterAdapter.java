@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.adapter.navigation;
+package com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

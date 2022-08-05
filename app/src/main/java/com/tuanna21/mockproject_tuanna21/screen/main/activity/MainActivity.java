@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.view.activity;
+package com.tuanna21.mockproject_tuanna21.screen.main.activity;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.navigation.FakeItemAdapterAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
-import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 
 public class MainActivity extends BaseActivity implements

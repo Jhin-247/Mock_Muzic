@@ -1,11 +1,11 @@
-package com.tuanna21.mockproject_tuanna21.view.fragment;
+package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAllSongBinding;
-import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding> {
 

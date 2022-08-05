@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.viewmodel;
+package com.tuanna21.mockproject_tuanna21.screen.splash;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.tuanna21.mockproject_tuanna21.view.activity.MainActivity;
+import com.tuanna21.mockproject_tuanna21.screen.main.activity.MainActivity;
 
 public class SplashViewModel extends AndroidViewModel {
 

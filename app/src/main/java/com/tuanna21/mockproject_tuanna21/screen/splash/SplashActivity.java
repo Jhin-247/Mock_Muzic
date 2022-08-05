@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.view.activity;
+package com.tuanna21.mockproject_tuanna21.screen.splash;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivitySplashBinding;
-import com.tuanna21.mockproject_tuanna21.viewmodel.SplashViewModel;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity {

@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.view.fragment;
+package com.tuanna21.mockproject_tuanna21.screen.main.fragments.settingfragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.navigation.FakeItemAdapterAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSettingBinding;
 import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
-import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 public class SettingFragment extends BaseFragment<MainActivityViewModel, FragmentSettingBinding> {
 

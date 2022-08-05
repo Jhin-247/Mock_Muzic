@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.viewmodel;
+package com.tuanna21.mockproject_tuanna21.screen.main.viewmodel;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.HAS_DATABASE;

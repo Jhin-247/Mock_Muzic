@@ -1,15 +1,15 @@
-package com.tuanna21.mockproject_tuanna21.view.fragment;
+package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments;
 
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.adapter.viewpageradapter.SongPagerAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.viewpageradapter.SongPagerAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSongBinding;
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
-import com.tuanna21.mockproject_tuanna21.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 public class SongFragment extends BaseFragment<MainActivityViewModel, FragmentSongBinding> {
     private SongPagerAdapter mAdapter;
