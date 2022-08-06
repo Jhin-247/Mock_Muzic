@@ -1,4 +1,4 @@
-package com.tuanna21.mockproject_tuanna21.db.model;
+package com.tuanna21.mockproject_tuanna21.data.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -16,6 +16,21 @@ public class Song implements Serializable {
     private String songImage;
     private long albumId;
     private String album;
+
+    public Song() {
+    }
+
+    public Song(int id, String path, String duration, String title, String artist, String songImage, long albumId, String album, long lastTimePlayed) {
+        this.id = id;
+        this.path = path;
+        this.duration = duration;
+        this.title = title;
+        this.artist = artist;
+        this.songImage = songImage;
+        this.albumId = albumId;
+        this.album = album;
+        this.lastTimePlayed = lastTimePlayed;
+    }
 
     public long getLastTimePlayed() {
         return lastTimePlayed;

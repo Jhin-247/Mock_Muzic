@@ -1,10 +1,10 @@
-package com.tuanna21.mockproject_tuanna21.db.model;
+package com.tuanna21.mockproject_tuanna21.data.model;
 
-public class NavigationItem {
+public class SettingItem {
     private String name;
     private int image;
 
-    public NavigationItem(String name, int image) {
+    public SettingItem(String name, int image) {
         this.name = name;
         this.image = image;
     }
