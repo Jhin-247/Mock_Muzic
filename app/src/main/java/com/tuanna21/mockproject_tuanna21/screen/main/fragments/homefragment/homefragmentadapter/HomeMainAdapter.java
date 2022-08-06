@@ -13,7 +13,7 @@ import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.FullScreenHomeAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.SmallSongHomeAdapter;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
-import com.tuanna21.mockproject_tuanna21.db.model.Song;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
 import java.util.List;
 

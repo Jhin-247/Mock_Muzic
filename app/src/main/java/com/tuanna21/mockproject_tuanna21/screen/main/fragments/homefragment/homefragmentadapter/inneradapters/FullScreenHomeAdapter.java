@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuanna21.mockproject_tuanna21.databinding.ItemRecentPlayBinding;
-import com.tuanna21.mockproject_tuanna21.db.model.Song;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
 import java.util.List;
 

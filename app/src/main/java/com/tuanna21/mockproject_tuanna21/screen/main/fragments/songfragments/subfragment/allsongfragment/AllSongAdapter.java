@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemAllSongBinding;
-import com.tuanna21.mockproject_tuanna21.db.model.Song;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
 import java.util.List;
 

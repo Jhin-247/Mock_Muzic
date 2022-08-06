@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemNavigationBinding;
-import com.tuanna21.mockproject_tuanna21.db.model.NavigationItem;
+import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 
 import java.util.List;
 
