@@ -5,9 +5,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "table_song")
 public class Song implements Serializable {
-    @PrimaryKey(autoGenerate = true)
     private int id;
     private String path;
     private String duration;
