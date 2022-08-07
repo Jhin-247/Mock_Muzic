@@ -1,40 +1,30 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeBinding;
+import com.tuanna21.mockproject_tuanna21.base.BaseAdapter;
+import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
+import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeBinding;
+import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 
-import java.util.List;
+public class SmallSongHomeAdapter extends BaseAdapter<ItemHomeBinding, Song> {
 
-public class SmallSongHomeAdapter extends RecyclerView.Adapter<SmallSongHomeAdapter.HotHolder> {
-    private List<Song> mSongs;
     private int mScreenWidth;
 
-    public SmallSongHomeAdapter() {
+    public SmallSongHomeAdapter(Activity mActivity) {
+        super(mActivity);
+        mScreenWidth = new ScreenUtils().getScreenWidth(mActivity);
     }
 
-    public void setScreenWidth(int screenWidth) {
-        this.mScreenWidth = screenWidth;
-    }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<Song> data) {
-        this.mSongs = data;
-        notifyDataSetChanged();
-    }
-
-    @NonNull
     @Override
-    public HotHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HotHolder(
+    protected BaseHolder<ItemHomeBinding, Song> getViewDataBinding(ViewGroup parent, int viewType) {
+        return new BaseHolder<>(
                 ItemHomeBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
@@ -44,28 +34,18 @@ public class SmallSongHomeAdapter extends RecyclerView.Adapter<SmallSongHomeAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotHolder holder, int position) {
-        Song song = mSongs.get(position);
-        ViewGroup.LayoutParams layoutParams = holder.mBinding.cstLayout.getLayoutParams();
-        layoutParams.width = mScreenWidth * 2 / 3;
-        holder.mBinding.cstLayout.setLayoutParams(layoutParams);
-        holder.mBinding.tvArtist.setText(song.getArtist());
-        holder.mBinding.tvTitle.setText(song.getTitle());
-        Glide.with(holder.mBinding.ivThumbnail).load(Uri.parse(song.getSongImage())).into(holder.mBinding.ivThumbnail);
+    public int getItemCount() {
+        return getData() == null ? 0 : (Math.min(getData().size(), 10));
     }
 
     @Override
-    public int getItemCount() {
-        return mSongs == null ? 0 : (Math.min(mSongs.size(), 10));
-    }
-
-
-    public static class HotHolder extends RecyclerView.ViewHolder {
-        ItemHomeBinding mBinding;
-
-        public HotHolder(@NonNull ItemHomeBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
+    protected void bindView(ItemHomeBinding binding, int position) {
+        Song song = getItemAt(position);
+        ViewGroup.LayoutParams layoutParams = binding.cstLayout.getLayoutParams();
+        layoutParams.width = mScreenWidth * 2 / 3;
+        binding.cstLayout.setLayoutParams(layoutParams);
+        binding.tvArtist.setText(song.getArtist());
+        binding.tvTitle.setText(song.getTitle());
+        Glide.with(binding.ivThumbnail).load(Uri.parse(song.getSongImage())).into(binding.ivThumbnail);
     }
 }

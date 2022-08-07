@@ -1,5 +1,6 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.adapter.inneradapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -32,9 +33,10 @@ public class DefaultPlaylistAdapter extends BaseAdapter<ItemDefaultPlaylistBindi
         );
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void bindView(ItemDefaultPlaylistBinding binding, int position) {
         binding.tvPlaylistName.setText(mActivity.getString(R.string.playlist));
-        binding.tvPlaylistSongNumber.setText(binding.getRoot().getContext().getString(R.string.song_number));
+        binding.tvPlaylistSongNumber.setText("Song");
     }
 }

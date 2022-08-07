@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
+import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 
 public abstract class BaseFragment<VM extends ViewModel, VB extends ViewDataBinding> extends Fragment {
 
@@ -38,11 +39,21 @@ public abstract class BaseFragment<VM extends ViewModel, VB extends ViewDataBind
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initBinding(inflater, container);
         initViewModel();
+        initToolbar();
+        initData();
         initYourView();
         initListener();
+        initObserver();
+
 
         return mBinding.getRoot();
     }
+
+    protected abstract void initData();
+
+    protected abstract void initToolbar();
+
+    protected abstract void initObserver();
 
     protected abstract void initListener();
 
@@ -55,4 +66,12 @@ public abstract class BaseFragment<VM extends ViewModel, VB extends ViewDataBind
     protected abstract int getLayoutId();
 
     protected abstract void initYourView();
+
+    protected int getScreenWidth() {
+        return new ScreenUtils().getScreenWidth(mActivity);
+    }
+
+    protected int getScreenHeight() {
+        return new ScreenUtils().getScreenHeight(mActivity);
+    }
 }

@@ -10,6 +10,22 @@ import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.sub
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 public class PlaylistFragment extends BaseFragment<MainActivityViewModel, FragmentPlaylistBinding> {
+    private PlaylistMainAdapter mAdapter;
+    @Override
+    protected void initData() {
+        mAdapter = new PlaylistMainAdapter(mActivity);
+    }
+
+    @Override
+    protected void initToolbar() {
+
+    }
+
+    @Override
+    protected void initObserver() {
+        mViewModel.getSongs().observe(getViewLifecycleOwner(), mAdapter::setData);
+    }
+
     @Override
     protected void initListener() {
 
@@ -27,11 +43,7 @@ public class PlaylistFragment extends BaseFragment<MainActivityViewModel, Fragme
 
     @Override
     protected void initYourView() {
-        PlaylistMainAdapter mAdapter = new PlaylistMainAdapter(mActivity);
-
         mBinding.rcvPlaylist.setLayoutManager(new LinearLayoutManager(mActivity));
         mBinding.rcvPlaylist.setAdapter(mAdapter);
-
-        mViewModel.getSongs().observe(getViewLifecycleOwner(), mAdapter::setData);
     }
 }

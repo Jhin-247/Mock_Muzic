@@ -1,6 +1,6 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuanna21.mockproject_tuanna21.R;
+import com.tuanna21.mockproject_tuanna21.base.BaseAdapter;
+import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
+import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.FullScreenHomeAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.SmallSongHomeAdapter;
-import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
-import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
-import java.util.List;
-
-public class HomeMainAdapter extends RecyclerView.Adapter<HomeMainAdapter.HomeMainHolder> {
+public class HomeMainAdapter extends BaseAdapter<ItemHomeMainBinding, Song> {
     private static final String TAG = HomeMainAdapter.class.getSimpleName();
 
     private static final int TYPE_HOT = 1;
@@ -25,30 +25,71 @@ public class HomeMainAdapter extends RecyclerView.Adapter<HomeMainAdapter.HomeMa
     private static final int TYPE_RECENT_PLAYED = 3;
     private final SmallSongHomeAdapter mSmallAdapter;
     private final FullScreenHomeAdapter mFullScreenAdapter;
-    private List<Song> mSongList;
 
-    public HomeMainAdapter(int width) {
-        mSmallAdapter = new SmallSongHomeAdapter();
-        mFullScreenAdapter = new FullScreenHomeAdapter();
-        mSmallAdapter.setScreenWidth(width);
+    public HomeMainAdapter(Activity mActivity) {
+        super(mActivity);
+        mSmallAdapter = new SmallSongHomeAdapter(mActivity);
+        mFullScreenAdapter = new FullScreenHomeAdapter(mActivity);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setListHomeCategory(List<Song> songList) {
-        this.mSongList = songList;
-        notifyDataSetChanged();
-    }
-
-    @NonNull
     @Override
-    public HomeMainHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeMainHolder(
+    protected BaseHolder<ItemHomeMainBinding, Song> getViewDataBinding(ViewGroup parent, int viewType) {
+        return new BaseHolder<>(
                 ItemHomeMainBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
                         false
                 )
         );
+    }
+
+    @Override
+    protected void bindView(ItemHomeMainBinding binding, int position) {
+        mSmallAdapter.setData(getData());
+        mFullScreenAdapter.setData(getData());
+        binding.rcvInnerData.setAdapter(mSmallAdapter);
+        switch (getItemViewType(position)) {
+            case TYPE_HOT:
+                binding.tvCategory.setText(
+                        mActivity.getString(R.string.hot)
+                );
+                binding.rcvInnerData.setLayoutManager(
+                        new LinearLayoutManager(
+                                mActivity,
+                                RecyclerView.HORIZONTAL,
+                                false
+                        )
+                );
+                binding.rcvInnerData.setAdapter(mSmallAdapter);
+                break;
+            case TYPE_PLAYLIST:
+                binding.tvCategory.setText(
+                        mActivity.getString(R.string.playlist)
+                );
+                binding.rcvInnerData.setLayoutManager(
+                        new LinearLayoutManager(
+                                mActivity,
+                                RecyclerView.HORIZONTAL,
+                                false
+                        )
+                );
+                binding.rcvInnerData.setAdapter(mSmallAdapter);
+                break;
+            case TYPE_RECENT_PLAYED:
+                binding.tvCategory.setText(
+                        mActivity.getString(R.string.recent_play)
+                );
+                binding.rcvInnerData.setLayoutManager(
+                        new LinearLayoutManager(
+                                binding.getRoot().getContext(),
+                                RecyclerView.VERTICAL,
+                                false
+                        )
+                );
+                binding.rcvInnerData.setAdapter(mFullScreenAdapter);
+                binding.viewBottomLine.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override
@@ -66,65 +107,7 @@ public class HomeMainAdapter extends RecyclerView.Adapter<HomeMainAdapter.HomeMa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeMainHolder holder, int position) {
-        mSmallAdapter.setData(mSongList);
-        mFullScreenAdapter.setData(mSongList);
-        holder.mBinding.rcvInnerData.setAdapter(mSmallAdapter);
-        switch (getItemViewType(position)) {
-            case TYPE_HOT:
-                holder.mBinding.tvCategory.setText(
-                        holder.mBinding.rcvInnerData.getContext().getString(R.string.hot)
-                );
-                holder.mBinding.rcvInnerData.setLayoutManager(
-                        new LinearLayoutManager(
-                                holder.mBinding.getRoot().getContext(),
-                                RecyclerView.HORIZONTAL,
-                                false
-                        )
-                );
-                holder.mBinding.rcvInnerData.setAdapter(mSmallAdapter);
-                break;
-            case TYPE_PLAYLIST:
-                holder.mBinding.tvCategory.setText(
-                        holder.mBinding.rcvInnerData.getContext().getString(R.string.playlist)
-                );
-                holder.mBinding.rcvInnerData.setLayoutManager(
-                        new LinearLayoutManager(
-                                holder.mBinding.getRoot().getContext(),
-                                RecyclerView.HORIZONTAL,
-                                false
-                        )
-                );
-                holder.mBinding.rcvInnerData.setAdapter(mSmallAdapter);
-                break;
-            case TYPE_RECENT_PLAYED:
-                holder.mBinding.tvCategory.setText(
-                        holder.mBinding.rcvInnerData.getContext().getString(R.string.recent_play)
-                );
-                holder.mBinding.rcvInnerData.setLayoutManager(
-                        new LinearLayoutManager(
-                                holder.mBinding.getRoot().getContext(),
-                                RecyclerView.VERTICAL,
-                                false
-                        )
-                );
-                holder.mBinding.rcvInnerData.setAdapter(mFullScreenAdapter);
-                holder.mBinding.viewBottomLine.setVisibility(View.GONE);
-                break;
-        }
-    }
-
-    @Override
     public int getItemCount() {
         return 3;
-    }
-
-    public static class HomeMainHolder extends RecyclerView.ViewHolder {
-        ItemHomeMainBinding mBinding;
-
-        public HomeMainHolder(@NonNull ItemHomeMainBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
     }
 }

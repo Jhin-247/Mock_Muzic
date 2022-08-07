@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -43,7 +44,8 @@ public class MainActivityViewModel extends BaseViewModel {
         mRepository.loadSettingScreenData(getApplication(), new Callback<List<NavigationItem>>() {
             @Override
             public void success(List<NavigationItem> data) {
-                mSettingItems.setValue(data);
+                mSettingItems.postValue(data);
+                Log.i(this.getClass().getSimpleName(), "success: " + data.size());
             }
 
             @Override
@@ -57,7 +59,7 @@ public class MainActivityViewModel extends BaseViewModel {
         mRepository.loadNavigationData(getApplication(), new Callback<List<NavigationItem>>() {
             @Override
             public void success(List<NavigationItem> data) {
-                mNavigationItems.setValue(data);
+                mNavigationItems.postValue(data);
             }
 
             @Override

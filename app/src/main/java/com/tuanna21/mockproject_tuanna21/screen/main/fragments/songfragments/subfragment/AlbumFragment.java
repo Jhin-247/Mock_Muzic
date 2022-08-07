@@ -9,6 +9,21 @@ import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewM
 
 public class AlbumFragment extends BaseFragment<MainActivityViewModel, FragmentAlbumBinding> {
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initToolbar() {
+
+    }
+
+    @Override
+    protected void initObserver() {
+
+    }
+
+    @Override
     protected void initListener() {
 
     }

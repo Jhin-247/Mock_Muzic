@@ -48,8 +48,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         setupDataBinding();
         setupViewModel();
         setupAction();
+        setupObserver();
         initYourView();
     }
+
+    protected abstract void setupObserver();
 
     protected abstract void setupDataBinding();
 
