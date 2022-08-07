@@ -21,6 +21,21 @@ public class SongFragment extends BaseFragment<MainActivityViewModel, FragmentSo
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initToolbar() {
+
+    }
+
+    @Override
+    protected void initObserver() {
+
+    }
+
+    @Override
     protected void initListener() {
         mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
             mToolbarListener.openDrawer();

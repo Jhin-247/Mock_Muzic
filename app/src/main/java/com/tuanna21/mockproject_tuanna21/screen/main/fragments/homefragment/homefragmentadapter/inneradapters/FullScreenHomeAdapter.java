@@ -1,34 +1,22 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.tuanna21.mockproject_tuanna21.databinding.ItemRecentPlayBinding;
+import com.tuanna21.mockproject_tuanna21.base.BaseAdapter;
+import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
+import com.tuanna21.mockproject_tuanna21.databinding.ItemRecentPlayBinding;
 
-import java.util.List;
-
-public class FullScreenHomeAdapter extends RecyclerView.Adapter<FullScreenHomeAdapter.FullScreenHolder> {
-
-    private List<Song> mSongList;
-
-    public FullScreenHomeAdapter(){
+public class FullScreenHomeAdapter extends BaseAdapter<ItemRecentPlayBinding, Song> {
+    public FullScreenHomeAdapter(Activity activity) {
+        super(activity);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<Song> data){
-        this.mSongList = data;
-        notifyDataSetChanged();
-    }
-
-    @NonNull
     @Override
-    public FullScreenHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FullScreenHolder(
+    protected BaseHolder<ItemRecentPlayBinding, Song> getViewDataBinding(ViewGroup parent, int viewType) {
+        return new BaseHolder<>(
                 ItemRecentPlayBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
@@ -38,24 +26,14 @@ public class FullScreenHomeAdapter extends RecyclerView.Adapter<FullScreenHomeAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FullScreenHolder holder, int position) {
-        Song song = mSongList.get(position);
-        holder.mBinding.tvArtist.setText(song.getArtist());
-        holder.mBinding.tvTitle.setText(song.getTitle());
+    public int getItemCount() {
+        return getData() == null ? 0 : (Math.min(getData().size(), 10));
     }
 
     @Override
-    public int getItemCount() {
-        return mSongList == null ? 0 : (Math.min(mSongList.size(), 10));
-    }
-
-
-    public static class FullScreenHolder extends RecyclerView.ViewHolder {
-        ItemRecentPlayBinding mBinding;
-
-        public FullScreenHolder(@NonNull ItemRecentPlayBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
+    protected void bindView(ItemRecentPlayBinding binding, int position) {
+        Song song = getItemAt(position);
+        binding.tvArtist.setText(song.getArtist());
+        binding.tvTitle.setText(song.getTitle());
     }
 }

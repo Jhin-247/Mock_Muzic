@@ -13,6 +13,20 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
     private AllSongAdapter mAdapter;
 
     @Override
+    protected void initData() {
+        mAdapter = new AllSongAdapter(mActivity);
+    }
+
+    @Override
+    protected void initToolbar() {
+    }
+
+    @Override
+    protected void initObserver() {
+        mViewModel.getSongs().observe(getViewLifecycleOwner(), songs -> mAdapter.setData(songs));
+    }
+
+    @Override
     protected void initListener() {
     }
 
@@ -28,9 +42,7 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initYourView() {
-        mAdapter = new AllSongAdapter();
         mBinding.rcvSong.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mBinding.rcvSong.setAdapter(mAdapter);
-        mViewModel.getSongs().observe(getViewLifecycleOwner(), songs -> mAdapter.setSongList(songs));
     }
 }

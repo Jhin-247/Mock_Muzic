@@ -1,28 +1,24 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.tuanna21.mockproject_tuanna21.databinding.ItemNavigationBinding;
+import com.tuanna21.mockproject_tuanna21.base.BaseAdapter;
+import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
+import com.tuanna21.mockproject_tuanna21.databinding.ItemNavigationBinding;
 
-import java.util.List;
+public class FakeItemAdapterAdapter extends BaseAdapter<ItemNavigationBinding, NavigationItem> {
 
-public class FakeItemAdapterAdapter extends RecyclerView.Adapter<FakeItemAdapterAdapter.NavigationItemHolder> {
-    private final List<NavigationItem> mNavigationItemList;
-
-    public FakeItemAdapterAdapter(List<NavigationItem> mNavigationItemList) {
-        this.mNavigationItemList = mNavigationItemList;
+    public FakeItemAdapterAdapter(Activity mActivity) {
+        super(mActivity);
     }
 
-    @NonNull
     @Override
-    public NavigationItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NavigationItemHolder(
+    protected BaseHolder<ItemNavigationBinding, NavigationItem> getViewDataBinding(ViewGroup parent, int viewType) {
+        return new BaseHolder<>(
                 ItemNavigationBinding.inflate(
                         LayoutInflater.from(parent.getContext()),
                         parent,
@@ -32,23 +28,9 @@ public class FakeItemAdapterAdapter extends RecyclerView.Adapter<FakeItemAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NavigationItemHolder holder, int position) {
-        NavigationItem navigationItem = mNavigationItemList.get(position);
-        holder.mBinding.tvIcon.setText(navigationItem.getName());
-        Glide.with(holder.mBinding.ivIcon).load(navigationItem.getImage()).into(holder.mBinding.ivIcon);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mNavigationItemList == null ? 0 : mNavigationItemList.size();
-    }
-
-    public static class NavigationItemHolder extends RecyclerView.ViewHolder {
-        ItemNavigationBinding mBinding;
-
-        public NavigationItemHolder(@NonNull ItemNavigationBinding binding) {
-            super(binding.getRoot());
-            this.mBinding = binding;
-        }
+    protected void bindView(ItemNavigationBinding binding, int position) {
+        NavigationItem navigationItem = getItemAt(position);
+        binding.tvIcon.setText(navigationItem.getName());
+        Glide.with(binding.ivIcon).load(navigationItem.getImage()).into(binding.ivIcon);
     }
 }

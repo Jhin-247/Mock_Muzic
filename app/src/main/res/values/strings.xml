@@ -33,4 +33,6 @@
     <string name="other">Other</string>
     <string name="empty_data">Please allow first time permission</string>
 
+    <string name="my_playlists">My Playlists</string>
+
 </resources>

@@ -36,11 +36,11 @@ public class MainActivity extends BaseActivity implements
         ToolbarListener,
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOAD_SONG = 1;
+    private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
 
     private void setupNavigationDrawer() {
-        FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(mViewModel.getNavigationItems());
         mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
         mBinding.rcvNavigation.setAdapter(mFakeItemAdapterAdapter);
         mBinding.navigationView.setNavigationItemSelectedListener(this);
@@ -83,6 +83,11 @@ public class MainActivity extends BaseActivity implements
         if (result) {
             LoaderManager.getInstance(this).initLoader(LOAD_SONG, null, this);
         }
+    }
+
+    @Override
+    protected void setupObserver() {
+        mViewModel.getNavigationItems().observe(this, mFakeItemAdapterAdapter::setData);
     }
 
     @Override
