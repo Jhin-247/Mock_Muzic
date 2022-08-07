@@ -1,105 +1,108 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.viewmodel;
 
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.HAS_DATABASE;
-
-import android.Manifest;
 import android.app.Application;
-import android.content.Context;
+import android.content.ContentUris;
+import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.db.model.NavigationItem;
-import com.tuanna21.mockproject_tuanna21.db.model.Song;
-import com.tuanna21.mockproject_tuanna21.db.repository.SongRepository;
-import com.tuanna21.mockproject_tuanna21.utils.SharedPreferencesUtils;
-import com.tuanna21.mockproject_tuanna21.utils.SongUtils;
+import com.tuanna21.mockproject_tuanna21.base.BaseViewModel;
+import com.tuanna21.mockproject_tuanna21.base.Callback;
+import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivityViewModel extends AndroidViewModel {
-    private final SongRepository mSongRepository;
-    private LiveData<List<Song>> mSongs;
-    private int mScreenHeight;
-    private int mScreenWidth;
-
+public class MainActivityViewModel extends BaseViewModel {
+    private MutableLiveData<List<Song>> mSongs;
+    private MutableLiveData<List<NavigationItem>> mSettingItems;
+    private MutableLiveData<List<NavigationItem>> mNavigationItems;
 
     public MainActivityViewModel(Application application) {
         super(application);
+    }
+
+    @Override
+    protected void initData() {
         mSongs = new MutableLiveData<>();
-        mSongRepository = new SongRepository(application);
-        mSongs = mSongRepository.getSongs();
+        mSettingItems = new MutableLiveData<>();
+        mNavigationItems = new MutableLiveData<>();
+    }
+
+    @Override
+    protected void loadData() {
+        loadSettingData();
+        loadNavigationData();
+    }
+
+    private void loadSettingData() {
+        mRepository.loadSettingScreenData(getApplication(), new Callback<List<NavigationItem>>() {
+            @Override
+            public void success(List<NavigationItem> data) {
+                mSettingItems.postValue(data);
+                Log.i(this.getClass().getSimpleName(), "success: " + data.size());
+            }
+
+            @Override
+            public void error(Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+    }
+
+    private void loadNavigationData() {
+        mRepository.loadNavigationData(getApplication(), new Callback<List<NavigationItem>>() {
+            @Override
+            public void success(List<NavigationItem> data) {
+                mNavigationItems.postValue(data);
+            }
+
+            @Override
+            public void error(Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
     public LiveData<List<Song>> getSongs() {
         return mSongs;
     }
 
-    public int getScreenHeight() {
-        return mScreenHeight;
+    public LiveData<List<NavigationItem>> getSettingItems() {
+        return mSettingItems;
     }
 
-    public void setScreenHeight(int screenHeight) {
-        this.mScreenHeight = screenHeight;
+    public LiveData<List<NavigationItem>> getNavigationItems() {
+        return mNavigationItems;
     }
 
-    public int getScreenWidth() {
-        return mScreenWidth;
-    }
+    public void setSongCursor(Cursor cursor) {
+        List<Song> songList = new ArrayList<>();
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            long time = System.currentTimeMillis();
+            while (cursor.moveToNext()) {
+                Uri imageUri = Uri.parse("content://media/external/audio/albumart");
+                Uri imagePathUri = ContentUris.withAppendedId(imageUri, cursor.getLong(5));
 
-    public void setScreenWidth(int screenWidth) {
-        this.mScreenWidth = screenWidth;
-    }
-
-    public boolean checkPermission(Context context) {
-        return ContextCompat.checkSelfPermission(
-                context.getApplicationContext(),
-                Manifest.permission.READ_CONTACTS
-        ) == PERMISSION_GRANTED;
-    }
-
-    public boolean isFirstTimeInit(Context context) {
-        return !SharedPreferencesUtils.getInstance(context.getApplicationContext()).hasDatabaseData();
-    }
-
-    public void requestSyncSongData(Context context) {
-        Log.i("requestSyncSongData", "requestSyncSongData: " + context);
-        List<Song> songList = SongUtils.getAllSongFromDevice(context);
-        for (Song song : songList) {
-            mSongRepository.insertSong(song);
+                songList.add(new Song(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        String.valueOf(cursor.getLong(2)),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        imagePathUri.toString(),
+                        cursor.getLong(5),
+                        cursor.getString(6),
+                        time
+                ));
+            }
+            mSongs.setValue(songList);
         }
-        SharedPreferencesUtils.getInstance(context).saveBoolean(HAS_DATABASE, true);
-    }
-
-    public List<NavigationItem> getNavigationItems() {
-        List<NavigationItem> navigationItems = new ArrayList<>();
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.themes), R.drawable.ic_theme));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.ringtone_cutter), R.drawable.ic_rington_cutter));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.sleep_timer), R.drawable.ic_sleep_timer));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.equaliser), R.drawable.ic_equaliser));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.driver_mode), R.drawable.ic_driver_mode));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.hidden_folder), R.drawable.ic_hidden_folder));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.scan_media), R.drawable.ic_scan));
-
-        return navigationItems;
-    }
-
-    public List<NavigationItem> getSettingItems() {
-        List<NavigationItem> navigationItems = new ArrayList<>();
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.display), R.drawable.ic_display));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.audio), R.drawable.ic_audio));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.headset), R.drawable.ic_headset));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.lock_screen), R.drawable.ic_lock_screen));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.advanced), R.drawable.ic_advanced));
-        navigationItems.add(new NavigationItem(getApplication().getApplicationContext().getString(R.string.other), R.drawable.ic_other));
-
-        return navigationItems;
     }
 }

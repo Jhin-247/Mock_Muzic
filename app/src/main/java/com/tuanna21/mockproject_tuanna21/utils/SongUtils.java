@@ -10,7 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.tuanna21.mockproject_tuanna21.db.model.Song;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.PlaylistFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongFragment;
 
 public class SongPagerAdapter extends FragmentStateAdapter {
@@ -19,6 +20,12 @@ public class SongPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        switch (position) {
+            case 0:
+                return new AllSongFragment();
+            case 1:
+                return new PlaylistFragment();
+        }
         return new AllSongFragment();
     }
 

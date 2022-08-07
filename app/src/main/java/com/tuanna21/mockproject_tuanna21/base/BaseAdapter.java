@@ -2,6 +2,7 @@ package com.tuanna21.mockproject_tuanna21.base;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,17 +14,22 @@ import java.util.List;
 
 public abstract class BaseAdapter<VB extends ViewDataBinding, M> extends RecyclerView.Adapter<BaseHolder<VB, M>> {
 
-    private List<M> mData;
     protected Activity mActivity;
+    private List<M> mData;
 
     public BaseAdapter(Activity mActivity) {
         this.mActivity = mActivity;
         mData = new ArrayList<>();
     }
 
+    protected List<M> getData() {
+        return mData;
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<M> data) {
         this.mData = data;
+        Log.i(this.getClass().getSimpleName(), "setData: " + data.size());
         notifyDataSetChanged();
     }
 

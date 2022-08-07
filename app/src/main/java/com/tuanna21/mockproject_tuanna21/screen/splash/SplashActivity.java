@@ -38,6 +38,11 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
+    protected void setupObserver() {
+
+    }
+
+    @Override
     protected void setupViewModel() {
         mViewModel = new ViewModelProvider(this).get(SplashViewModel.class);
     }

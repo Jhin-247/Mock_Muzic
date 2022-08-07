@@ -6,28 +6,43 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tuanna21.mockproject_tuanna21.R;
+import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSettingBinding;
 import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
+import java.util.List;
+
 public class SettingFragment extends BaseFragment<MainActivityViewModel, FragmentSettingBinding> {
 
-    private void setupToolbar() {
+    private FakeItemAdapterAdapter mAdapter;
+
+    @Override
+    protected void initData() {
+        mAdapter = new FakeItemAdapterAdapter(mActivity);
+    }
+
+    @Override
+    protected void initToolbar() {
         mBinding.toolbar.etSearch.setVisibility(View.GONE);
         mBinding.toolbar.tvTitle.setVisibility(View.VISIBLE);
         mBinding.toolbar.tvTitle.setText(mActivity.getString(R.string.setting));
     }
 
+    @Override
+    protected void initObserver() {
+        mViewModel.getSettingItems().observe(getViewLifecycleOwner(), navigationItems -> mAdapter.setData(navigationItems));
+    }
 
     @Override
     protected void initListener() {
-        //toolbar:
         mBinding.toolbar.ivNavigationButton.setOnClickListener(v -> {
             mToolbarListener.openDrawer();
         });
@@ -50,9 +65,6 @@ public class SettingFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initYourView() {
-        setupToolbar();
-        FakeItemAdapterAdapter mAdapter = new FakeItemAdapterAdapter(mViewModel.getSettingItems());
-
         mBinding.rcvSetting.setLayoutManager(new LinearLayoutManager(requireContext()));
         mBinding.rcvSetting.addItemDecoration(new VerticalSpaceItemDecoration(35));
         mBinding.rcvSetting.setAdapter(mAdapter);

@@ -25,9 +25,12 @@
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_song.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/header_layout.xml" value="0.19895833333333332" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_all_song.xml" value="0.5" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_default_playlist.xml" value="0.25" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_home.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_home_hot.xml" value="0.25" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_home_main.xml" value="0.33" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_main_playlist.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_my_playlist.xml" value="0.19895833333333332" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_navigation.xml" value="0.5" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_recent_play.xml" value="0.33" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/rating_view.xml" value="0.19895833333333332" />
