@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -26,6 +25,7 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
     private MutableLiveData<List<NavigationItem>> mSettingItems;
     private MutableLiveData<List<NavigationItem>> mNavigationItems;
     private MutableLiveData<Song> mCurrentSong;
+    private MutableLiveData<BottomPlayBarStatus> mBottomPlayStatusBar;
 
     public MainActivityViewModel(Application application) {
         super(application);
@@ -37,6 +37,7 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         mSettingItems = new MutableLiveData<>();
         mNavigationItems = new MutableLiveData<>();
         mCurrentSong = new MutableLiveData<>();
+        mBottomPlayStatusBar = new MutableLiveData<>(BottomPlayBarStatus.HIDE);
         mPlayerController = MyPlayerController.getInstance();
         mPlayerController.addObserver(MainActivityViewModel.this);
     }
@@ -92,6 +93,10 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         return mNavigationItems;
     }
 
+    public LiveData<BottomPlayBarStatus> getBottomStatus() {
+        return mBottomPlayStatusBar;
+    }
+
     public void setSongCursor(Cursor cursor) {
         List<Song> songList = new ArrayList<>();
         if (cursor != null && cursor.getCount() > 0) {
@@ -102,20 +107,8 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
                 Uri imageUri = Uri.parse("content://media/external/audio/albumart");
                 Uri imagePathUri = ContentUris.withAppendedId(imageUri, cursor.getLong(5));
 
-//                songList.add(new Song(
-//                        cursor.getInt(0),
-//                        cursor.getString(1),
-//                        String.valueOf(cursor.getLong(2)),
-//                        cursor.getString(3),
-//                        cursor.getString(4),
-//                        imagePathUri.toString(),
-//                        cursor.getLong(5),
-//                        cursor.getString(6),
-//                        time
-//                ));
-
                 songList.add(new Song(
-                        i,
+                        cursor.getInt(0),
                         cursor.getString(1),
                         String.valueOf(cursor.getLong(2)),
                         cursor.getString(3),
@@ -125,12 +118,21 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
                         cursor.getString(6),
                         time
                 ));
-                i++;
-                Log.i("setSongCursor", "setSongCursor: " + i);
             }
-            mSongs.setValue(songList);
-            mPlayerController.setSongsToPlay(songList);
-            mCurrentSong.setValue(mPlayerController.getCurrentSong());
+            if (mPlayerController.isPlaying()) {
+                mSongs.setValue(mPlayerController.getCurrentSongs());
+                mCurrentSong.setValue(mPlayerController.getCurrentSong());
+                mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PLAY);
+            } else if (!mPlayerController.isPlaying() && mPlayerController.hasData()) {
+                mSongs.setValue(mPlayerController.getCurrentSongs());
+                mCurrentSong.setValue(mPlayerController.getCurrentSong());
+                mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PAUSE);
+            } else {
+                mSongs.setValue(songList);
+                mPlayerController.setSongsToPlay(songList);
+                mCurrentSong.setValue(mPlayerController.getCurrentSong());
+                mBottomPlayStatusBar.setValue(BottomPlayBarStatus.HIDE);
+            }
         }
     }
 
@@ -155,6 +157,10 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         } else {
             mPlayerController.resume();
         }
+    }
+
+    public void setBottomPlayStatus(BottomPlayBarStatus status) {
+        mBottomPlayStatusBar.setValue(status);
     }
 
     @Override

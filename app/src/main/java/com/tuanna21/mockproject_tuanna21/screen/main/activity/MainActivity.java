@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -29,12 +28,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
-import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
-import com.tuanna21.mockproject_tuanna21.player.MyPlayerController;
-import com.tuanna21.mockproject_tuanna21.player.SongObserver;
 import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.BottomPlayBarStatus;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 import com.tuanna21.mockproject_tuanna21.service.SongService;
 
@@ -42,8 +39,7 @@ import com.tuanna21.mockproject_tuanna21.service.SongService;
 public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         ToolbarListener,
-        LoaderManager.LoaderCallbacks<Cursor>,
-        SongObserver {
+        LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOAD_SONG = 1;
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
@@ -96,12 +92,28 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void setupObserver() {
-        MyPlayerController.getInstance().addObserver(MainActivity.this);
         mViewModel.getNavigationItems().observe(this, mFakeItemAdapterAdapter::setData);
         mViewModel.getCurrentSong().observe(this, song -> {
             mBinding.bottomPlay.tvSongTitle.setText(song.getTitle());
             mBinding.bottomPlay.tvSongArtist.setText(song.getArtist());
         });
+        mViewModel.getBottomStatus().observe(this, this::changBottomBarStatus);
+    }
+
+    private void changBottomBarStatus(BottomPlayBarStatus bottomPlayBarStatus) {
+        switch (bottomPlayBarStatus) {
+            case HIDE:
+                mBinding.bottomPlay.llBottom.setVisibility(View.GONE);
+                break;
+            case SHOW_AND_PLAY:
+                mBinding.bottomPlay.llBottom.setVisibility(View.VISIBLE);
+                Glide.with(mBinding.bottomPlay.ivPlayPause).load(R.drawable.ic_pause).into(mBinding.bottomPlay.ivPlayPause);
+                break;
+            case SHOW_AND_PAUSE:
+                mBinding.bottomPlay.llBottom.setVisibility(View.VISIBLE);
+                Glide.with(mBinding.bottomPlay.ivPlayPause).load(R.drawable.ic_play).into(mBinding.bottomPlay.ivPlayPause);
+                break;
+        }
     }
 
     @Override
@@ -115,10 +127,6 @@ public class MainActivity extends BaseActivity implements
         setupNavigationDrawer();
 
         setupListener();
-
-        setBottomLayoutVisible();
-        onSongUpdate();
-
     }
 
     private void connectService() {
@@ -190,27 +198,5 @@ public class MainActivity extends BaseActivity implements
     public void showBottomPlay() {
         mBinding.bottomPlay.llBottom.setVisibility(View.VISIBLE);
         connectService();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MyPlayerController.getInstance().removeObserver(MainActivity.this);
-    }
-
-    @Override
-    public void onSongUpdate() {
-        if(MyPlayerController.getInstance().isPlaying()){
-            Glide.with(mBinding.bottomPlay.ivPlayPause).load(R.drawable.ic_pause).into(mBinding.bottomPlay.ivPlayPause);
-        } else {
-            Glide.with(mBinding.bottomPlay.ivPlayPause).load(R.drawable.ic_play).into(mBinding.bottomPlay.ivPlayPause);
-        }
-    }
-
-    public void setBottomLayoutVisible(){
-        mBinding.bottomPlay.llBottom.setVisibility(
-                MyPlayerController.getInstance().isPlaying() ?
-                        View.VISIBLE : View.GONE
-        );
     }
 }

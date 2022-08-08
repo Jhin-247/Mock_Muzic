@@ -36,6 +36,10 @@ public class MyPlayerController implements SongCompleteListener {
         return sInstance;
     }
 
+    public boolean hasData(){
+        return (mCurrentSongs == null);
+    }
+
     public boolean isPlaying() {
         return mPlayer.isPlaying();
     }
