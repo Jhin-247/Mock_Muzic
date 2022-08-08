@@ -6,15 +6,15 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.PlaylistFragment;
-import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongFragmentListener;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongFragment;
 
 public class SongPagerAdapter extends FragmentStateAdapter {
 
-    private AllSongFragmentListener mAllSongFragment;
+    private AllSongFragment mAllSongFragment;
 
     public SongPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        mAllSongFragment = new AllSongFragmentListener();
+        mAllSongFragment = new AllSongFragment();
     }
 
     @NonNull
@@ -22,11 +22,11 @@ public class SongPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new AllSongFragmentListener();
+                return new AllSongFragment();
             case 1:
                 return new PlaylistFragment();
         }
-        return new AllSongFragmentListener();
+        return new AllSongFragment();
     }
 
     public String getTitleAt(int position) {

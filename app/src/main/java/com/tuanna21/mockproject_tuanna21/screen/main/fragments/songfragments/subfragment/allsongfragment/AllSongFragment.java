@@ -14,7 +14,7 @@ import com.tuanna21.mockproject_tuanna21.databinding.FragmentAllSongBinding;
 import com.tuanna21.mockproject_tuanna21.screen.main.activity.MainActivity;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
-public class AllSongFragmentListener extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding>
+public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding>
         implements AllSongAdapter.SongClickListener {
 
     private AllSongAdapterV2 mAdapter;
