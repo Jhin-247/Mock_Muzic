@@ -15,7 +15,7 @@
     <color name="image_view_border_color">#1CFFFFFF</color>
 
     <color name="text_selected">#D9519D</color>
-
+    <color name="bottom_play_main_color">#0F1223</color>
 
 
 </resources>

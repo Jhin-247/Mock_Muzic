@@ -20,6 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:fontFamily="@font/segoe_ui"
                 android:text="@string/my_playlists"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
@@ -29,6 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/segoe_ui"
                 android:text="@string/view_all"
                 android:textAlignment="textEnd"
                 android:textColor="@color/view_all_color"
