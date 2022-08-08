@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -15,15 +13,19 @@ import com.tuanna21.mockproject_tuanna21.base.BaseViewModel;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
+import com.tuanna21.mockproject_tuanna21.player.MyPlayerController;
+import com.tuanna21.mockproject_tuanna21.player.SongObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivityViewModel extends BaseViewModel {
+public class MainActivityViewModel extends BaseViewModel implements SongObserver {
+    private MyPlayerController mPlayerController;
     private MutableLiveData<List<Song>> mSongs;
     private MutableLiveData<List<NavigationItem>> mSettingItems;
     private MutableLiveData<List<NavigationItem>> mNavigationItems;
+    private MutableLiveData<Song> mCurrentSong;
 
     public MainActivityViewModel(Application application) {
         super(application);
@@ -34,7 +36,11 @@ public class MainActivityViewModel extends BaseViewModel {
         mSongs = new MutableLiveData<>();
         mSettingItems = new MutableLiveData<>();
         mNavigationItems = new MutableLiveData<>();
+        mCurrentSong = new MutableLiveData<>();
+        mPlayerController = MyPlayerController.getInstance();
+        mPlayerController.addObserver(MainActivityViewModel.this);
     }
+
 
     @Override
     protected void loadData() {
@@ -42,12 +48,15 @@ public class MainActivityViewModel extends BaseViewModel {
         loadNavigationData();
     }
 
+    public LiveData<Song> getCurrentSong() {
+        return mCurrentSong;
+    }
+
     private void loadSettingData() {
         mRepository.loadSettingScreenData(getApplication(), new Callback<List<NavigationItem>>() {
             @Override
             public void success(List<NavigationItem> data) {
                 mSettingItems.postValue(data);
-                Log.i(this.getClass().getSimpleName(), "success: " + data.size());
             }
 
             @Override
@@ -88,12 +97,25 @@ public class MainActivityViewModel extends BaseViewModel {
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             long time = System.currentTimeMillis();
+            int i = 0;
             while (cursor.moveToNext()) {
                 Uri imageUri = Uri.parse("content://media/external/audio/albumart");
                 Uri imagePathUri = ContentUris.withAppendedId(imageUri, cursor.getLong(5));
 
+//                songList.add(new Song(
+//                        cursor.getInt(0),
+//                        cursor.getString(1),
+//                        String.valueOf(cursor.getLong(2)),
+//                        cursor.getString(3),
+//                        cursor.getString(4),
+//                        imagePathUri.toString(),
+//                        cursor.getLong(5),
+//                        cursor.getString(6),
+//                        time
+//                ));
+
                 songList.add(new Song(
-                        cursor.getInt(0),
+                        i,
                         cursor.getString(1),
                         String.valueOf(cursor.getLong(2)),
                         cursor.getString(3),
@@ -103,8 +125,46 @@ public class MainActivityViewModel extends BaseViewModel {
                         cursor.getString(6),
                         time
                 ));
+                i++;
+                Log.i("setSongCursor", "setSongCursor: " + i);
             }
             mSongs.setValue(songList);
+            mPlayerController.setSongsToPlay(songList);
+            mCurrentSong.setValue(mPlayerController.getCurrentSong());
         }
+    }
+
+    public void playSong(Song song) {
+        if (getSongs().getValue() != null) {
+            mPlayerController.playFromIndex(getSongs().getValue().indexOf(song));
+            mCurrentSong.setValue(song);
+        }
+    }
+
+    public void playPreviousSong() {
+        mPlayerController.playNextSong();
+    }
+
+    public void playNextSong() {
+        mPlayerController.playNextSong();
+    }
+
+    public void playOrPause() {
+        if (mPlayerController.isPlaying()) {
+            mPlayerController.pause();
+        } else {
+            mPlayerController.resume();
+        }
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        mPlayerController.removeObserver(MainActivityViewModel.this);
+    }
+
+    @Override
+    public void onSongUpdate() {
+        mCurrentSong.setValue(mPlayerController.getCurrentSong());
     }
 }

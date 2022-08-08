@@ -1,13 +1,9 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tuanna21.mockproject_tuanna21.R;
@@ -16,12 +12,16 @@ import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemAllSongBinding;
 
-import java.util.List;
-
 public class AllSongAdapter extends BaseAdapter<ItemAllSongBinding, Song> {
+
+    private SongClickListener mClick;
 
     public AllSongAdapter(Activity mActivity) {
         super(mActivity);
+    }
+
+    public void setOnClick(SongClickListener mClick) {
+        this.mClick = mClick;
     }
 
     @Override
@@ -45,5 +45,10 @@ public class AllSongAdapter extends BaseAdapter<ItemAllSongBinding, Song> {
                 .error(R.drawable.ic_empty_song)
                 .fitCenter()
                 .into(binding.ivThumbnail);
+        binding.getRoot().setOnClickListener(v -> mClick.onSongClick(song));
+    }
+
+    public interface SongClickListener {
+        void onSongClick(Song song);
     }
 }

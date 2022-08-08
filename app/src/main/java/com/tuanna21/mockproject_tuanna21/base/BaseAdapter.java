@@ -29,7 +29,6 @@ public abstract class BaseAdapter<VB extends ViewDataBinding, M> extends Recycle
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<M> data) {
         this.mData = data;
-        Log.i(this.getClass().getSimpleName(), "setData: " + data.size());
         notifyDataSetChanged();
     }
 
