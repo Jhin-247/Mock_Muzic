@@ -6,11 +6,9 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
@@ -52,7 +50,9 @@ public class SongService extends Service implements SongObserver {
         if (intent != null && intent.hasExtra("user_action")) {
             handleAction(intent.getIntExtra("user_action", ACTION_MISS_CLICK));
         } else {
-            createNotification();
+            if (mMusicController.hasData()) {
+                createNotification();
+            }
         }
         return START_NOT_STICKY;
     }

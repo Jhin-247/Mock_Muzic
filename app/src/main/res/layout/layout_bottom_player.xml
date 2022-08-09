@@ -7,9 +7,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bottom_play_main_color"
-        android:orientation="horizontal"
-        android:padding="6dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/sk_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="50"
+            android:progressTint="#DF628F"
+            android:thumbTint="#DF628F"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_thumbnail"
@@ -19,7 +28,7 @@
             android:padding="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sk_time"
             app:shapeAppearanceOverlay="@style/rounded_image_view_rounded"
             app:strokeColor="#57FFFFFF"
             app:strokeWidth="1dp" />
@@ -32,7 +41,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ll_control"
             app:layout_constraintStart_toEndOf="@id/iv_thumbnail"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/sk_time">
 
             <TextView
                 android:id="@+id/tv_song_title"
@@ -64,7 +73,7 @@
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_close"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/sk_time">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_play_previous"
@@ -101,7 +110,7 @@
             android:layout_height="11dp"
             android:padding="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sk_time"
             app:srcCompat="@drawable/ic_close" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

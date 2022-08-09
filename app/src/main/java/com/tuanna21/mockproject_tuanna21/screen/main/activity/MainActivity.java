@@ -4,12 +4,20 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +52,7 @@ public class MainActivity extends BaseActivity implements
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
+    private Handler mHandler;
 
     private void setupNavigationDrawer() {
         mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
@@ -94,8 +103,11 @@ public class MainActivity extends BaseActivity implements
     protected void setupObserver() {
         mViewModel.getNavigationItems().observe(this, mFakeItemAdapterAdapter::setData);
         mViewModel.getCurrentSong().observe(this, song -> {
+            mBinding.bottomPlay.skTime.setProgress(0);
+            mBinding.bottomPlay.skTime.setMax(Integer.parseInt(song.getDuration()));
             mBinding.bottomPlay.tvSongTitle.setText(song.getTitle());
             mBinding.bottomPlay.tvSongArtist.setText(song.getArtist());
+            Glide.with(mBinding.bottomPlay.ivThumbnail).load(song.getSongImage()).error(R.drawable.ic_empty_song).fitCenter().into(mBinding.bottomPlay.ivThumbnail);
         });
         mViewModel.getBottomStatus().observe(this, this::changBottomBarStatus);
     }
@@ -123,10 +135,52 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void initYourView() {
+        initData();
         setupNavigation();
         setupNavigationDrawer();
 
         setupListener();
+        setupBottomPlayView();
+        connectService();
+    }
+
+    private void handlerSeekbar() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mBinding.bottomPlay.skTime.setProgress(mViewModel.getCurrentSongTime());
+                mHandler.postDelayed(this, 1);
+            }
+        });
+        mBinding.bottomPlay.skTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    mViewModel.seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    private void initData() {
+        HandlerThread handlerThread = new HandlerThread("seekbar_thread");
+        handlerThread.start();
+        mHandler = new Handler(handlerThread.getLooper());
+    }
+
+    private void setupBottomPlayView() {
+        mBinding.bottomPlay.skTime.setPadding(0, 0, 0, 0);
+        handlerSeekbar();
     }
 
     private void connectService() {
@@ -137,14 +191,16 @@ public class MainActivity extends BaseActivity implements
     private void setupListener() {
         mBinding.bottomPlay.ivPlayPrevious.setOnClickListener(v -> {
             mViewModel.playPreviousSong();
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         });
 
         mBinding.bottomPlay.ivPlayNext.setOnClickListener(v -> {
             mViewModel.playNextSong();
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         });
 
         mBinding.bottomPlay.ivClose.setOnClickListener(v -> {
-            mBinding.bottomPlay.llBottom.setVisibility(View.GONE);
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.HIDE);
         });
 
         mBinding.bottomPlay.ivPlayPause.setOnClickListener(v -> {
@@ -193,10 +249,5 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onLoaderReset(@NonNull Loader loader) {
 
-    }
-
-    public void showBottomPlay() {
-        mBinding.bottomPlay.llBottom.setVisibility(View.VISIBLE);
-        connectService();
     }
 }

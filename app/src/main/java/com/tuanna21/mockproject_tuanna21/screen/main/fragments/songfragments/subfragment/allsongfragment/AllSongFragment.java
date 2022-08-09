@@ -58,21 +58,12 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
         mBinding.rcvSong.setAdapter(mAdapter);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBinding.rcvSong.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    Log.i(TAG, "onScrollChange: " + "\nscrollX: " + scrollX + "\nscrollY: " + scrollY + "\noldScrollX: " + oldScrollX + "\noldScrollY: " + oldScrollY);
-                }
-            });
-
+            mBinding.rcvSong.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> Log.i(TAG, "onScrollChange: " + "\nscrollX: " + scrollX + "\nscrollY: " + scrollY + "\noldScrollX: " + oldScrollX + "\noldScrollY: " + oldScrollY));
         }
     }
 
     @Override
     public void onSongClick(Song song) {
         mViewModel.playSong(song);
-        if (mActivity instanceof MainActivity) {
-            ((MainActivity) mActivity).showBottomPlay();
-        }
     }
 }

@@ -9,15 +9,6 @@ import java.util.List;
 public class MyPlayerController implements SongCompleteListener {
     private static MyPlayerController sInstance;
     private final MyPlayer mPlayer;
-
-    public List<Song> getCurrentSongs() {
-        return mCurrentSongs;
-    }
-
-    public void setCurrentSongs(List<Song> mCurrentSongs) {
-        this.mCurrentSongs = mCurrentSongs;
-    }
-
     private List<Song> mCurrentSongs;
     private boolean mCanPlayNext, mCanPlayPrevious;
     private int mCurrentSongIndex = -1;
@@ -36,8 +27,16 @@ public class MyPlayerController implements SongCompleteListener {
         return sInstance;
     }
 
-    public boolean hasData(){
-        return (mCurrentSongs == null);
+    public List<Song> getCurrentSongs() {
+        return mCurrentSongs;
+    }
+
+    public void setCurrentSongs(List<Song> mCurrentSongs) {
+        this.mCurrentSongs = mCurrentSongs;
+    }
+
+    public boolean hasData() {
+        return (mCurrentSongIndex != -1);
     }
 
     public boolean isPlaying() {
@@ -82,6 +81,15 @@ public class MyPlayerController implements SongCompleteListener {
         }
     }
 
+    private void nextSong() {
+        if (mCanPlayNext) {
+            mCurrentSongIndex++;
+            stopMusicAndClear();
+            mPlayer.play(mCurrentSongs.get(mCurrentSongIndex));
+            setCanPlayStatus(true, mCurrentSongIndex != (mCurrentSongs.size() - 1));
+        }
+    }
+
     public void playPreviousSong() {
         if (mCanPlayPrevious) {
             mCurrentSongIndex--;
@@ -112,10 +120,12 @@ public class MyPlayerController implements SongCompleteListener {
 
     @Override
     public void onSongComplete() {
-        if (mCanPlayNext) {
-            playNextSong();
-        } else {
-            playFromIndex(0);
+        if (mCanPlayNext && getCurrentSongTimePosition() != 0) {
+            nextSong();
         }
+    }
+
+    public void seekTo(int progress) {
+        mPlayer.seekTo(progress);
     }
 }

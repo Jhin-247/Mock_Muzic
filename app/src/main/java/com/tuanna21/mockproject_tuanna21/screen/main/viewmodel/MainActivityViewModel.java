@@ -85,6 +85,10 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         return mSongs;
     }
 
+    public int getCurrentSongTime(){
+        return mPlayerController.getCurrentSongTimePosition();
+    }
+
     public LiveData<List<NavigationItem>> getSettingItems() {
         return mSettingItems;
     }
@@ -140,11 +144,12 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         if (getSongs().getValue() != null) {
             mPlayerController.playFromIndex(getSongs().getValue().indexOf(song));
             mCurrentSong.setValue(song);
+            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         }
     }
 
     public void playPreviousSong() {
-        mPlayerController.playNextSong();
+        mPlayerController.playPreviousSong();
     }
 
     public void playNextSong() {
@@ -154,8 +159,10 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
     public void playOrPause() {
         if (mPlayerController.isPlaying()) {
             mPlayerController.pause();
+            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PAUSE);
         } else {
             mPlayerController.resume();
+            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         }
     }
 
@@ -172,5 +179,16 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
     @Override
     public void onSongUpdate() {
         mCurrentSong.setValue(mPlayerController.getCurrentSong());
+        if (mPlayerController.isPlaying()) {
+            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PLAY);
+        } else if (!mPlayerController.isPlaying() && mPlayerController.hasData()) {
+            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PAUSE);
+        } else {
+            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.HIDE);
+        }
+    }
+
+    public void seekTo(int progress) {
+        mPlayerController.seekTo(progress);
     }
 }

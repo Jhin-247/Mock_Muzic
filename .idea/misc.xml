@@ -16,6 +16,7 @@
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_play.xml" value="0.156" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_play_vintage.xml" value="0.156" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_search.xml" value="0.2075" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/progress_drawable.xml" value="0.18" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/font/wew.xml" value="0.22916666666666666" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/activity_intro.xml" value="0.18" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/activity_main.xml" value="0.18" />
@@ -38,7 +39,7 @@
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_my_playlist.xml" value="0.19895833333333332" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_navigation.xml" value="0.5" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_recent_play.xml" value="0.33" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/layout_bottom_player.xml" value="0.33" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/layout_bottom_player.xml" value="0.5" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/notification_player.xml" value="0.33" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/rating_view.xml" value="0.19895833333333332" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/toolbar.xml" value="0.33" />
