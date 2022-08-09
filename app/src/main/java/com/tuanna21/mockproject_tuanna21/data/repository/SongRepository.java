@@ -14,11 +14,9 @@ import java.util.List;
 
 public class SongRepository {
     private static SongRepository sInstance;
-    private List<Song> mSongs;
-
 
     private SongRepository() {
-        mSongs = new ArrayList<>();
+
     }
 
     public static synchronized SongRepository getInstance() {
@@ -28,11 +26,7 @@ public class SongRepository {
         return sInstance;
     }
 
-    public List<Song> getSong() {
-        return mSongs;
-    }
-
-    public void loadSong(Context context) {
+    public List<Song> loadSong(Context context) {
         Uri audioCollectionUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             audioCollectionUri = MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
@@ -72,8 +66,7 @@ public class SongRepository {
             }
             cursor.close();
         }
-        mSongs = songList;
-
+        return songList;
     }
 
 }

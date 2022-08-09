@@ -8,7 +8,6 @@ import android.os.HandlerThread;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -35,7 +34,6 @@ import com.tuanna21.mockproject_tuanna21.service.SongService;
 public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         ToolbarListener {
-    private static final int LOAD_SONG = 1;
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
@@ -90,18 +88,14 @@ public class MainActivity extends BaseActivity implements
     protected void setupObserver() {
         mViewModel.getNavigationItems().observe(this, mFakeItemAdapterAdapter::setData);
         mViewModel.getCurrentSong().observe(this, song -> {
+            connectService();
             mBinding.bottomPlay.skTime.setProgress(0);
             mBinding.bottomPlay.skTime.setMax(Integer.parseInt(song.getDuration()));
             mBinding.bottomPlay.tvSongTitle.setText(song.getTitle());
             mBinding.bottomPlay.tvSongArtist.setText(song.getArtist());
             Glide.with(mBinding.bottomPlay.ivThumbnail).load(song.getSongImage()).error(R.drawable.ic_empty_song).fitCenter().into(mBinding.bottomPlay.ivThumbnail);
         });
-        mViewModel.getBottomStatus().observe(this, new Observer<BottomPlayBarStatus>() {
-            @Override
-            public void onChanged(BottomPlayBarStatus bottomPlayBarStatus) {
-                changeBottomBarStatus(bottomPlayBarStatus);
-            }
-        });
+        mViewModel.getBottomStatus().observe(this, this::changeBottomBarStatus);
     }
 
     private void changeBottomBarStatus(BottomPlayBarStatus bottomPlayBarStatus) {
@@ -132,7 +126,6 @@ public class MainActivity extends BaseActivity implements
         setupNavigationDrawer();
         setupListener();
         setupBottomPlayView();
-        connectService();
     }
 
     private void handlerSeekbar() {
