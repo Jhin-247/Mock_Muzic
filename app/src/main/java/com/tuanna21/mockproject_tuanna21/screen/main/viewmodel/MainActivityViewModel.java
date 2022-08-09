@@ -1,9 +1,6 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.viewmodel;
 
 import android.app.Application;
-import android.content.ContentUris;
-import android.database.Cursor;
-import android.net.Uri;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,7 +12,6 @@ import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.player.MyPlayerController;
 import com.tuanna21.mockproject_tuanna21.player.SongObserver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -81,11 +77,26 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         });
     }
 
+    public void loadSong() {
+        mRepository.loadSong(new Callback<List<Song>>() {
+            @Override
+            public void success(List<Song> data) {
+                mSongs.postValue(data);
+                mPlayerController.setSongsToPlay(data);
+            }
+
+            @Override
+            public void error(Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+    }
+
     public LiveData<List<Song>> getSongs() {
         return mSongs;
     }
 
-    public int getCurrentSongTime(){
+    public int getCurrentSongTime() {
         return mPlayerController.getCurrentSongTimePosition();
     }
 
@@ -99,45 +110,6 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
 
     public LiveData<BottomPlayBarStatus> getBottomStatus() {
         return mBottomPlayStatusBar;
-    }
-
-    public void setSongCursor(Cursor cursor) {
-        List<Song> songList = new ArrayList<>();
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            long time = System.currentTimeMillis();
-            int i = 0;
-            while (cursor.moveToNext()) {
-                Uri imageUri = Uri.parse("content://media/external/audio/albumart");
-                Uri imagePathUri = ContentUris.withAppendedId(imageUri, cursor.getLong(5));
-
-                songList.add(new Song(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        String.valueOf(cursor.getLong(2)),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        imagePathUri.toString(),
-                        cursor.getLong(5),
-                        cursor.getString(6),
-                        time
-                ));
-            }
-            if (mPlayerController.isPlaying()) {
-                mSongs.setValue(mPlayerController.getCurrentSongs());
-                mCurrentSong.setValue(mPlayerController.getCurrentSong());
-                mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PLAY);
-            } else if (!mPlayerController.isPlaying() && mPlayerController.hasData()) {
-                mSongs.setValue(mPlayerController.getCurrentSongs());
-                mCurrentSong.setValue(mPlayerController.getCurrentSong());
-                mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PAUSE);
-            } else {
-                mSongs.setValue(songList);
-                mPlayerController.setSongsToPlay(songList);
-                mCurrentSong.setValue(mPlayerController.getCurrentSong());
-                mBottomPlayStatusBar.setValue(BottomPlayBarStatus.HIDE);
-            }
-        }
     }
 
     public void playSong(Song song) {

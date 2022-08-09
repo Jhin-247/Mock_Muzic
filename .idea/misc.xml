@@ -1,58 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/bg_image_view.xml" value="0.1755" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/bg_search_layout.xml" value="0.1755" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/bottom_nav_text_color.xml" value="0.158" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_close.xml" value="0.136" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_home_play.xml" value="0.1755" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_nav_home.xml" value="0.1585" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_nav_home_active.xml" value="0.1755" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_nav_setting.xml" value="0.1585" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_nav_song.xml" value="0.1585" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_pause.xml" value="0.156" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_play.xml" value="0.156" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_play_vintage.xml" value="0.156" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/ic_search.xml" value="0.2075" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/drawable/progress_drawable.xml" value="0.18" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/font/wew.xml" value="0.22916666666666666" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/activity_intro.xml" value="0.18" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/activity_splash.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_album.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_all_song.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_artist.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_genres.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_home.xml" value="0.22" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_playlist.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_setting.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/fragment_song.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/header_layout.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_all_song.xml" value="0.5" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_default_playlist.xml" value="0.25" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_home.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_home_hot.xml" value="0.25" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_home_main.xml" value="0.25" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_main_playlist.xml" value="0.25" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_my_playlist.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_navigation.xml" value="0.5" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/item_recent_play.xml" value="0.33" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/layout_bottom_player.xml" value="0.5" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/notification_player.xml" value="0.33" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/rating_view.xml" value="0.19895833333333332" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/layout/toolbar.xml" value="0.33" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/menu/main_menu.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/menu/menu_home.xml" value="0.2" />
-        <entry key="..\:/WorkSpace/FPT/TuanNA21/MockProject_TuanNA21/app/src/main/res/menu/navigation_menu.xml" value="0.2" />
-      </map>
-    </option>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

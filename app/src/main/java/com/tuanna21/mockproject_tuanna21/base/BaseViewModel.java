@@ -12,7 +12,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
-        mRepository = Repository.getInstance();
+        mRepository = Repository.getInstance(getApplication().getApplicationContext());
         initData();
         loadData();
     }

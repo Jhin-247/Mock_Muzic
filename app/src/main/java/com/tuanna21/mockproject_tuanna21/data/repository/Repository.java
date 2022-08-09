@@ -7,6 +7,7 @@ import android.os.HandlerThread;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +16,26 @@ public class Repository {
     private static Repository sInstance;
     private final SongRepository mSongRepository;
 
-    private Handler mHandler;
+    private final Handler mHandler;
 
-    private Repository() {
+    private Repository(Context context) {
         mSongRepository = SongRepository.getInstance();
         HandlerThread mHandlerThread = new HandlerThread("repository_thread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
+
+        initData(context);
     }
 
-    public static synchronized Repository getInstance() {
+    public static synchronized Repository getInstance(Context context) {
         if (sInstance == null) {
-            sInstance = new Repository();
+            sInstance = new Repository(context);
         }
         return sInstance;
+    }
+
+    private void initData(Context context) {
+        mSongRepository.loadSong(context);
     }
 
     public SongRepository getSongRepository() {
@@ -69,6 +76,17 @@ public class Repository {
                 callback.error(e);
             }
 
+        });
+    }
+
+    public void loadSong(Callback<List<Song>> callback) {
+        mHandler.post(() -> {
+            try {
+                List<Song> mSongList = mSongRepository.getSong();
+                callback.success(mSongList);
+            } catch (Exception e) {
+                callback.error(e);
+            }
         });
     }
 
