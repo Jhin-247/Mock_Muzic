@@ -150,7 +150,9 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
 
     @Override
     public void onSongUpdate() {
-        mCurrentSong.setValue(mPlayerController.getCurrentSong());
+        if (mCurrentSong.getValue() != mPlayerController.getCurrentSong()) {
+            mCurrentSong.setValue(mPlayerController.getCurrentSong());
+        }
         if (mPlayerController.isPlaying()) {
             mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PLAY);
         } else if (!mPlayerController.isPlaying() && mPlayerController.hasData()) {

@@ -8,10 +8,12 @@ import android.os.HandlerThread;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -32,7 +34,7 @@ import com.tuanna21.mockproject_tuanna21.service.SongService;
 
 public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
-        ToolbarListener{
+        ToolbarListener {
     private static final int LOAD_SONG = 1;
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
@@ -94,7 +96,12 @@ public class MainActivity extends BaseActivity implements
             mBinding.bottomPlay.tvSongArtist.setText(song.getArtist());
             Glide.with(mBinding.bottomPlay.ivThumbnail).load(song.getSongImage()).error(R.drawable.ic_empty_song).fitCenter().into(mBinding.bottomPlay.ivThumbnail);
         });
-        mViewModel.getBottomStatus().observe(this, this::changeBottomBarStatus);
+        mViewModel.getBottomStatus().observe(this, new Observer<BottomPlayBarStatus>() {
+            @Override
+            public void onChanged(BottomPlayBarStatus bottomPlayBarStatus) {
+                changeBottomBarStatus(bottomPlayBarStatus);
+            }
+        });
     }
 
     private void changeBottomBarStatus(BottomPlayBarStatus bottomPlayBarStatus) {
