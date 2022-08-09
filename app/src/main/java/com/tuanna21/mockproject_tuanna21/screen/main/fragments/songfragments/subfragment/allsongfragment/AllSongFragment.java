@@ -1,20 +1,30 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment;
 
+import android.os.Build;
+import android.util.Log;
+import android.view.View;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAllSongBinding;
+import com.tuanna21.mockproject_tuanna21.screen.main.activity.MainActivity;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
-public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding> {
+public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding>
+        implements AllSongAdapter.SongClickListener {
 
-    private AllSongAdapter mAdapter;
+    private AllSongAdapterV2 mAdapter;
+
+    private String TAG = "AllSongFragmentListener";
 
     @Override
     protected void initData() {
-        mAdapter = new AllSongAdapter(mActivity);
+        mAdapter = new AllSongAdapterV2(mActivity);
+        mAdapter.setOnClick(this);
     }
 
     @Override
@@ -23,7 +33,9 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initObserver() {
-        mViewModel.getSongs().observe(getViewLifecycleOwner(), songs -> mAdapter.setData(songs));
+        mViewModel.getSongs().observe(mActivity, songs -> {
+            mAdapter.setData(songs);
+        });
     }
 
     @Override
@@ -44,5 +56,14 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
     protected void initYourView() {
         mBinding.rcvSong.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mBinding.rcvSong.setAdapter(mAdapter);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mBinding.rcvSong.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> Log.i(TAG, "onScrollChange: " + "\nscrollX: " + scrollX + "\nscrollY: " + scrollY + "\noldScrollX: " + oldScrollX + "\noldScrollY: " + oldScrollY));
+        }
+    }
+
+    @Override
+    public void onSongClick(Song song) {
+        mViewModel.playSong(song);
     }
 }

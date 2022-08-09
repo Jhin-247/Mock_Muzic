@@ -17,6 +17,7 @@
     <style name="tab_layout_text_style">
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/segoe_ui_bold</item>
     </style>
 
     <style name="rounded_image_view_rounded">

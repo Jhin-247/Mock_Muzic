@@ -22,16 +22,21 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                tools:text="@string/hot"
+                android:fontFamily="@font/segoe_ui_bold"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                tools:text="@string/hot" />
 
             <TextView
                 android:id="@+id/tv_view_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/segoe_ui"
                 android:text="@string/view_all"
                 android:textColor="@color/view_all_color"
                 android:textSize="17sp" />

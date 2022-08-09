@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
@@ -46,6 +47,6 @@ public class SmallSongHomeAdapter extends BaseAdapter<ItemHomeBinding, Song> {
         binding.cstLayout.setLayoutParams(layoutParams);
         binding.tvArtist.setText(song.getArtist());
         binding.tvTitle.setText(song.getTitle());
-        Glide.with(binding.ivThumbnail).load(Uri.parse(song.getSongImage())).into(binding.ivThumbnail);
+        Glide.with(binding.ivThumbnail).load(Uri.parse(song.getSongImage())).error(R.drawable.ic_hot_recommend).centerCrop().into(binding.ivThumbnail);
     }
 }
