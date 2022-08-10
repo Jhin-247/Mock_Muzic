@@ -13,6 +13,7 @@ import com.tuanna21.mockproject_tuanna21.player.MyPlayerController;
 import com.tuanna21.mockproject_tuanna21.player.SongObserver;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class MainActivityViewModel extends BaseViewModel implements SongObserver {
@@ -94,6 +95,10 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
 
     public LiveData<List<Song>> getSongs() {
         return mSongs;
+    }
+
+    public boolean isPlayingSong() {
+        return mPlayerController.isPlaying();
     }
 
     public int getCurrentSongTime() {
