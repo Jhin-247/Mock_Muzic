@@ -23,8 +23,6 @@ public class Repository {
         HandlerThread mHandlerThread = new HandlerThread("repository_thread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
-
-        initData(context);
     }
 
     public static synchronized Repository getInstance(Context context) {
@@ -32,10 +30,6 @@ public class Repository {
             sInstance = new Repository(context);
         }
         return sInstance;
-    }
-
-    private void initData(Context context) {
-        mSongRepository.loadSong(context);
     }
 
     public SongRepository getSongRepository() {
@@ -79,10 +73,10 @@ public class Repository {
         });
     }
 
-    public void loadSong(Callback<List<Song>> callback) {
+    public void loadSong(Context context,Callback<List<Song>> callback) {
         mHandler.post(() -> {
             try {
-                List<Song> mSongList = mSongRepository.getSong();
+                List<Song> mSongList = mSongRepository.loadSong(context.getApplicationContext());
                 callback.success(mSongList);
             } catch (Exception e) {
                 callback.error(e);

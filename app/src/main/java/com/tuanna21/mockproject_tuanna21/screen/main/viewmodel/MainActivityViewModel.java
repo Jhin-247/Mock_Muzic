@@ -82,11 +82,12 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
     }
 
     public void loadSong() {
-        mRepository.loadSong(new Callback<List<Song>>() {
+        mRepository.loadSong(getApplication().getApplicationContext(),new Callback<List<Song>>() {
             @Override
             public void success(List<Song> data) {
                 mSongs.postValue(data);
                 mPlayerController.setSongsToPlay(data);
+                Log.i(TAG, "success: " + data.size());
             }
 
             @Override
