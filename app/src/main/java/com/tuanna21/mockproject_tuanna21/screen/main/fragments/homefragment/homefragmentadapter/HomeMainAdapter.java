@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +15,7 @@ import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemHomeMainBinding;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.FullScreenHomeAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.inneradapters.SmallSongHomeAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongAdapter;
 
 public class HomeMainAdapter extends BaseAdapter<ItemHomeMainBinding, Song> {
     private static final String TAG = HomeMainAdapter.class.getSimpleName();
@@ -30,6 +30,10 @@ public class HomeMainAdapter extends BaseAdapter<ItemHomeMainBinding, Song> {
         super(mActivity);
         mSmallAdapter = new SmallSongHomeAdapter(mActivity);
         mFullScreenAdapter = new FullScreenHomeAdapter(mActivity);
+    }
+
+    public void setOnSongClickListener(AllSongAdapter.SongClickListener listener) {
+        mFullScreenAdapter.setSongClickListener(listener);
     }
 
     @Override

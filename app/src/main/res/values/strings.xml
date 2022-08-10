@@ -35,4 +35,13 @@
 
     <string name="my_playlists">My Playlists</string>
 
+    <string name="now_playing">Now Playing</string>
+    <string name="music_control_playlist">Playlist</string>
+    <string name="music_control_shuffle">Shuffle</string>
+    <string name="music_control_repeat">Repeat</string>
+    <string name="music_control_eq">EQ</string>
+    <string name="music_control_favourites">Favourites</string>
+
+    <string name="timer">%1$s | %2$s</string>
+
 </resources>

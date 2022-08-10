@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 
+import com.tuanna21.mockproject_tuanna21.listener.FragmentChangeListener;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
 import com.tuanna21.mockproject_tuanna21.utils.ScreenUtils;
 
@@ -21,6 +22,7 @@ public abstract class BaseFragment<VM extends ViewModel, VB extends ViewDataBind
     protected VM mViewModel;
     protected VB mBinding;
     protected ToolbarListener mToolbarListener;
+    protected FragmentChangeListener mFragmentChangeListener;
     protected BaseActivity mActivity;
 
     @Override
@@ -29,6 +31,7 @@ public abstract class BaseFragment<VM extends ViewModel, VB extends ViewDataBind
         if (context instanceof BaseActivity) {
             mActivity = (BaseActivity) context;
             mToolbarListener = (ToolbarListener) mActivity;
+            mFragmentChangeListener = (FragmentChangeListener) mActivity;
         } else {
             mActivity = null;
         }

@@ -5,6 +5,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
@@ -24,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
+import com.tuanna21.mockproject_tuanna21.listener.FragmentChangeListener;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
 import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.BottomPlayBarStatus;
@@ -33,11 +35,17 @@ import com.tuanna21.mockproject_tuanna21.service.SongService;
 
 public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
-        ToolbarListener {
+        ToolbarListener,
+        FragmentChangeListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
     private Handler mHandler;
+    private NavHostFragment navHostFragment;
+    private NavController navController;
+    // Fake back press from now_playing screen
+    private int mLastId;
 
     private void setupNavigationDrawer() {
         mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
@@ -55,9 +63,17 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setupNavigation() {
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         if (navHostFragment != null) {
-            NavController navController = navHostFragment.getNavController();
+            navController = navHostFragment.getNavController();
+            navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+                if (navDestination.getId() != R.id.songPlayingFragment) {
+                    mLastId = navDestination.getId();
+                    mViewModel.setCanShowBottomPlay(true);
+                } else {
+                    mViewModel.setCanShowBottomPlay(false);
+                }
+            });
             NavigationUI.setupWithNavController(mBinding.bottomNavigation, navController);
         }
         mBinding.bottomNavigation.setItemIconTintList(null);
@@ -88,17 +104,22 @@ public class MainActivity extends BaseActivity implements
     protected void setupObserver() {
         mViewModel.getNavigationItems().observe(this, mFakeItemAdapterAdapter::setData);
         mViewModel.getCurrentSong().observe(this, song -> {
-            connectService();
             mBinding.bottomPlay.skTime.setProgress(0);
             mBinding.bottomPlay.skTime.setMax(Integer.parseInt(song.getDuration()));
             mBinding.bottomPlay.tvSongTitle.setText(song.getTitle());
             mBinding.bottomPlay.tvSongArtist.setText(song.getArtist());
             Glide.with(mBinding.bottomPlay.ivThumbnail).load(song.getSongImage()).error(R.drawable.ic_empty_song).fitCenter().into(mBinding.bottomPlay.ivThumbnail);
         });
-        mViewModel.getBottomStatus().observe(this, this::changeBottomBarStatus);
+        mViewModel.getBottomStatus().observe(this, new Observer<BottomPlayBarStatus>() {
+            @Override
+            public void onChanged(BottomPlayBarStatus bottomPlayBarStatus) {
+                changeBottomBarStatus(bottomPlayBarStatus);
+            }
+        });
     }
 
     private void changeBottomBarStatus(BottomPlayBarStatus bottomPlayBarStatus) {
+        Log.i(TAG, "changeBottomBarStatus: " + bottomPlayBarStatus);
         switch (bottomPlayBarStatus) {
             case HIDE:
                 mBinding.bottomPlay.llBottom.setVisibility(View.GONE);
@@ -186,6 +207,14 @@ public class MainActivity extends BaseActivity implements
         mBinding.bottomPlay.ivClose.setOnClickListener(v -> mViewModel.setBottomPlayStatus(BottomPlayBarStatus.HIDE));
 
         mBinding.bottomPlay.ivPlayPause.setOnClickListener(this::onClick);
+
+        mBinding.bottomPlay.llSongInfo.setOnClickListener(v -> {
+            changeFragment(R.id.songPlayingFragment);
+        });
+
+        mBinding.bottomPlay.ivThumbnail.setOnClickListener(v -> {
+            changeFragment(R.id.songPlayingFragment);
+        });
     }
 
     @Override
@@ -198,7 +227,25 @@ public class MainActivity extends BaseActivity implements
         mBinding.drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    @Override
+    public void onNavigateBack() {
+        mBinding.bottomNavigation.setSelectedItemId(mLastId);
+        if (mViewModel.isPlayingSong()) {
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
+        } else {
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PAUSE);
+        }
+    }
+
     private void onClick(View v) {
         mViewModel.playOrPause();
     }
+
+    @Override
+    public void changeFragment(int id) {
+        connectService();
+        mBinding.bottomNavigation.setSelectedItemId(id);
+        mViewModel.setBottomPlayStatus(BottomPlayBarStatus.HIDE);
+    }
+
 }

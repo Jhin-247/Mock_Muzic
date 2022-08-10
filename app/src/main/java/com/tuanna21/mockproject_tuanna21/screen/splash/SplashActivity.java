@@ -1,7 +1,5 @@
 package com.tuanna21.mockproject_tuanna21.screen.splash;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-
 import android.annotation.SuppressLint;
 import android.os.Handler;
 
@@ -10,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
-import com.tuanna21.mockproject_tuanna21.databinding.ActivitySplashBinding;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity {
@@ -23,11 +20,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void setupAction() {
-//        if (!checkPermission(READ_EXTERNAL_STORAGE)) {
-//            requestPermission(READ_EXTERNAL_STORAGE);
-//        } else {
-//            onPermissionRequested(true);
-//        }
         Handler handler = new Handler();
         handler.postDelayed(() -> mViewModel.gotoMainActivity(SplashActivity.this), 2500);
     }

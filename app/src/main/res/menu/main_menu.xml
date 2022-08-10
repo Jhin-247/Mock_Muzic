@@ -13,4 +13,8 @@
         android:id="@+id/settingFragment"
         android:icon="@drawable/ic_nav_setting"
         android:title="@string/setting" />
+
+    <item
+        android:id="@+id/songPlayingFragment"
+        android:visible="false" />
 </menu>

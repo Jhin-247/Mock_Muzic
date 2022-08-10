@@ -20,4 +20,9 @@
         android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.settingfragment.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/songPlayingFragment"
+        android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.SongPlayingFragment"
+        android:label="fragment_song_playing"
+        tools:layout="@layout/fragment_song_playing" />
 </navigation>

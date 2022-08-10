@@ -8,10 +8,17 @@ import com.tuanna21.mockproject_tuanna21.base.BaseAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseHolder;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.ItemRecentPlayBinding;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongAdapter;
 
 public class FullScreenHomeAdapter extends BaseAdapter<ItemRecentPlayBinding, Song> {
+    private AllSongAdapter.SongClickListener mSongClickListener;
+
     public FullScreenHomeAdapter(Activity activity) {
         super(activity);
+    }
+
+    public void setSongClickListener(AllSongAdapter.SongClickListener mSongClickListener) {
+        this.mSongClickListener = mSongClickListener;
     }
 
     @Override
@@ -35,5 +42,10 @@ public class FullScreenHomeAdapter extends BaseAdapter<ItemRecentPlayBinding, So
         Song song = getItemAt(position);
         binding.tvArtist.setText(song.getArtist());
         binding.tvTitle.setText(song.getTitle());
+        binding.getRoot().setOnClickListener(v -> {
+            if (mSongClickListener != null) {
+                mSongClickListener.onSongClick(song);
+            }
+        });
     }
 }
