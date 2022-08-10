@@ -120,7 +120,7 @@ public class MyPlayerController implements SongCompleteListener {
 
     @Override
     public void onSongComplete() {
-        if (mCanPlayNext && getCurrentSongTimePosition() != 0) {
+        if (mCanPlayNext && (getCurrentSongTimePosition() > Integer.parseInt(mCurrentSongs.get(mCurrentSongIndex).getDuration()) / 2)) {
             nextSong();
         }
     }
