@@ -2,7 +2,6 @@ package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.su
 
 import android.os.Build;
 import android.util.Log;
-import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,19 +10,18 @@ import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAllSongBinding;
-import com.tuanna21.mockproject_tuanna21.screen.main.activity.MainActivity;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
 
 public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding>
         implements AllSongAdapter.SongClickListener {
 
-    private AllSongAdapterV2 mAdapter;
+    private AllSongAdapter mAdapter;
 
     private String TAG = "AllSongFragmentListener";
 
     @Override
     protected void initData() {
-        mAdapter = new AllSongAdapterV2(mActivity);
+        mAdapter = new AllSongAdapter(mActivity);
         mAdapter.setOnClick(this);
     }
 
@@ -65,5 +63,6 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
     @Override
     public void onSongClick(Song song) {
         mViewModel.playSong(song);
+        mFragmentChangeListener.changeFragment(R.id.songPlayingFragment);
     }
 }
