@@ -3,6 +3,7 @@ package com.tuanna21.mockproject_tuanna21.screen.main.activity;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.view.MenuItem;
@@ -11,11 +12,13 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +28,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseActivity;
 import com.tuanna21.mockproject_tuanna21.databinding.ActivityMainBinding;
+import com.tuanna21.mockproject_tuanna21.listener.FragmentChangeListener;
 import com.tuanna21.mockproject_tuanna21.listener.ToolbarListener;
 import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.BottomPlayBarStatus;
@@ -34,12 +38,15 @@ import com.tuanna21.mockproject_tuanna21.service.SongService;
 
 public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
-        ToolbarListener {
-    private static final int LOAD_SONG = 1;
+        ToolbarListener,
+        FragmentChangeListener {
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
     private Handler mHandler;
+    private NavHostFragment navHostFragment;
+    private NavController navController;
+    private int mLastId;
 
     private void setupNavigationDrawer() {
         mBinding.rcvNavigation.setLayoutManager(new LinearLayoutManager(this));
@@ -57,9 +64,14 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void setupNavigation() {
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         if (navHostFragment != null) {
-            NavController navController = navHostFragment.getNavController();
+            navController = navHostFragment.getNavController();
+            navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+                if (navDestination.getId() != R.id.songPlayingFragment) {
+                    mLastId = navDestination.getId();
+                }
+            });
             NavigationUI.setupWithNavController(mBinding.bottomNavigation, navController);
         }
         mBinding.bottomNavigation.setItemIconTintList(null);
@@ -205,7 +217,19 @@ public class MainActivity extends BaseActivity implements
         mBinding.drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    @Override
+    public void onNavigateBack() {
+        mBinding.bottomNavigation.setSelectedItemId(mLastId);
+    }
+
     private void onClick(View v) {
         mViewModel.playOrPause();
     }
+
+    @Override
+    public void changeFragment(int id) {
+        mBinding.bottomNavigation.setSelectedItemId(id);
+        mViewModel.setBottomPlayStatus(BottomPlayBarStatus.HIDE);
+    }
+
 }
