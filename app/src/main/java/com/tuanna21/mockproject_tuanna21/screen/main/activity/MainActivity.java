@@ -3,22 +3,18 @@ package com.tuanna21.mockproject_tuanna21.screen.main.activity;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +42,7 @@ public class MainActivity extends BaseActivity implements
     private Handler mHandler;
     private NavHostFragment navHostFragment;
     private NavController navController;
+    // Fake back press from now_playing screen
     private int mLastId;
 
     private void setupNavigationDrawer() {
@@ -205,6 +202,14 @@ public class MainActivity extends BaseActivity implements
         mBinding.bottomPlay.ivClose.setOnClickListener(v -> mViewModel.setBottomPlayStatus(BottomPlayBarStatus.HIDE));
 
         mBinding.bottomPlay.ivPlayPause.setOnClickListener(this::onClick);
+
+        mBinding.bottomPlay.llSongInfo.setOnClickListener(v -> {
+            changeFragment(R.id.songPlayingFragment);
+        });
+
+        mBinding.bottomPlay.ivThumbnail.setOnClickListener(v -> {
+            changeFragment(R.id.songPlayingFragment);
+        });
     }
 
     @Override
@@ -220,6 +225,11 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onNavigateBack() {
         mBinding.bottomNavigation.setSelectedItemId(mLastId);
+        if (mViewModel.isPlayingSong()) {
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
+        } else {
+            mViewModel.setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PAUSE);
+        }
     }
 
     private void onClick(View v) {
