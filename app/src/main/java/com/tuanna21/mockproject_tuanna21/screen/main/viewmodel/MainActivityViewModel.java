@@ -1,6 +1,7 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,16 +14,17 @@ import com.tuanna21.mockproject_tuanna21.player.MyPlayerController;
 import com.tuanna21.mockproject_tuanna21.player.SongObserver;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class MainActivityViewModel extends BaseViewModel implements SongObserver {
+    private final String TAG = MainActivityViewModel.class.getSimpleName();
     private MyPlayerController mPlayerController;
     private MutableLiveData<List<Song>> mSongs;
     private MutableLiveData<List<NavigationItem>> mSettingItems;
     private MutableLiveData<List<NavigationItem>> mNavigationItems;
     private MutableLiveData<Song> mCurrentSong;
     private MutableLiveData<BottomPlayBarStatus> mBottomPlayStatusBar;
+    private boolean mCanShowBottomPlay;
 
     public MainActivityViewModel(Application application) {
         super(application);
@@ -30,6 +32,7 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
 
     @Override
     protected void initData() {
+        mCanShowBottomPlay = true;
         mSongs = new MutableLiveData<>();
         mSettingItems = new MutableLiveData<>();
         mNavigationItems = new MutableLiveData<>();
@@ -121,7 +124,8 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
         if (getSongs().getValue() != null) {
             mPlayerController.playFromIndex(getSongs().getValue().indexOf(song));
             mCurrentSong.setValue(song);
-            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
+            if (mCanShowBottomPlay)
+                setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         }
     }
 
@@ -136,15 +140,26 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
     public void playOrPause() {
         if (mPlayerController.isPlaying()) {
             mPlayerController.pause();
-            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PAUSE);
+            if (mCanShowBottomPlay)
+                setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PAUSE);
         } else {
             mPlayerController.resume();
-            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
+            if (mCanShowBottomPlay)
+                setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         }
     }
 
+    public void setCanShowBottomPlay(boolean canShow) {
+        this.mCanShowBottomPlay = canShow;
+    }
+
     public void setBottomPlayStatus(BottomPlayBarStatus status) {
-        mBottomPlayStatusBar.setValue(status);
+        Log.i(TAG, "setBottomPlayStatus: " + status + "---" + mCanShowBottomPlay);
+        if (!mCanShowBottomPlay) {
+            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.HIDE);
+        } else {
+            mBottomPlayStatusBar.setValue(status);
+        }
     }
 
     @Override
@@ -159,11 +174,11 @@ public class MainActivityViewModel extends BaseViewModel implements SongObserver
             mCurrentSong.setValue(mPlayerController.getCurrentSong());
         }
         if (mPlayerController.isPlaying()) {
-            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PLAY);
+            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PLAY);
         } else if (!mPlayerController.isPlaying() && mPlayerController.hasData()) {
-            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.SHOW_AND_PAUSE);
+            setBottomPlayStatus(BottomPlayBarStatus.SHOW_AND_PAUSE);
         } else {
-            mBottomPlayStatusBar.setValue(BottomPlayBarStatus.HIDE);
+            setBottomPlayStatus(BottomPlayBarStatus.HIDE);
         }
     }
 

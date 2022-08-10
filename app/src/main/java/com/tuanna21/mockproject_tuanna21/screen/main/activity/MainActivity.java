@@ -5,6 +5,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         ToolbarListener,
         FragmentChangeListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private final FakeItemAdapterAdapter mFakeItemAdapterAdapter = new FakeItemAdapterAdapter(this);
     private MainActivityViewModel mViewModel;
     private ActivityMainBinding mBinding;
@@ -67,6 +69,9 @@ public class MainActivity extends BaseActivity implements
             navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
                 if (navDestination.getId() != R.id.songPlayingFragment) {
                     mLastId = navDestination.getId();
+                    mViewModel.setCanShowBottomPlay(true);
+                } else {
+                    mViewModel.setCanShowBottomPlay(false);
                 }
             });
             NavigationUI.setupWithNavController(mBinding.bottomNavigation, navController);
@@ -114,6 +119,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void changeBottomBarStatus(BottomPlayBarStatus bottomPlayBarStatus) {
+        Log.i(TAG, "changeBottomBarStatus: " + bottomPlayBarStatus);
         switch (bottomPlayBarStatus) {
             case HIDE:
                 mBinding.bottomPlay.llBottom.setVisibility(View.GONE);
@@ -141,7 +147,6 @@ public class MainActivity extends BaseActivity implements
         setupNavigationDrawer();
         setupListener();
         setupBottomPlayView();
-        connectService();
     }
 
     private void handlerSeekbar() {
@@ -238,6 +243,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void changeFragment(int id) {
+        connectService();
         mBinding.bottomNavigation.setSelectedItemId(id);
         mViewModel.setBottomPlayStatus(BottomPlayBarStatus.HIDE);
     }

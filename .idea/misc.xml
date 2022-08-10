@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/drawable/ic_dot.xml" value="0.163" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/fragment_album.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/fragment_song.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/fragment_song_playing.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/item_album.xml" value="0.33" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/item_default_playlist.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/item_home.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/layout_bottom_player.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/layout_music_controll.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/toolbar.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/layout/view_song_playing.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/menu/main_menu.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
