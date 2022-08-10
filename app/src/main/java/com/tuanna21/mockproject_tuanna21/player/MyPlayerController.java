@@ -58,9 +58,11 @@ public class MyPlayerController implements SongCompleteListener {
     }
 
     public void playFromIndex(int index) {
-        this.mCurrentSongIndex = index;
-        mPlayer.play(mCurrentSongs.get(mCurrentSongIndex));
-        setCanPlayStatus(mCurrentSongIndex != 0, mCurrentSongIndex != (mCurrentSongs.size() - 1));
+        if(index != mCurrentSongIndex) {
+            this.mCurrentSongIndex = index;
+            mPlayer.play(mCurrentSongs.get(mCurrentSongIndex));
+            setCanPlayStatus(mCurrentSongIndex != 0, mCurrentSongIndex != (mCurrentSongs.size() - 1));
+        }
     }
 
     public void setSongsAndPlayFromIndex(List<Song> songs, int index) {
