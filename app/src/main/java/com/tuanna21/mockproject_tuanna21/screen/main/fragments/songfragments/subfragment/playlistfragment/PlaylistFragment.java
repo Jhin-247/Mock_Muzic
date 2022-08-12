@@ -1,16 +1,16 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentPlaylistBinding;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.adapter.PlaylistMainAdapter;
-import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-public class PlaylistFragment extends BaseFragment<MainActivityViewModel, FragmentPlaylistBinding> {
+public class PlaylistFragment extends BaseFragment<MainViewModel, FragmentPlaylistBinding> {
     private PlaylistMainAdapter mAdapter;
+
     @Override
     protected void initData() {
         mAdapter = new PlaylistMainAdapter(mActivity);
@@ -23,7 +23,7 @@ public class PlaylistFragment extends BaseFragment<MainActivityViewModel, Fragme
 
     @Override
     protected void initObserver() {
-        mViewModel.getSongs().observe(getViewLifecycleOwner(), mAdapter::setData);
+//        mViewModel.getSongs().observe(getViewLifecycleOwner(), mAdapter::setData);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PlaylistFragment extends BaseFragment<MainActivityViewModel, Fragme
 
     @Override
     protected void initViewModel() {
-        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
+//        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
     }
 
     @Override

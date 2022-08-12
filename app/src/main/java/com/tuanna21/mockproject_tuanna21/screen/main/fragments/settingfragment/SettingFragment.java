@@ -6,21 +6,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tuanna21.mockproject_tuanna21.R;
-import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
-import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentSettingBinding;
 import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
-import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.fakeadapters.FakeItemAdapterAdapter;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-import java.util.List;
-
-public class SettingFragment extends BaseFragment<MainActivityViewModel, FragmentSettingBinding> {
+public class SettingFragment extends BaseFragment<MainViewModel, FragmentSettingBinding> {
 
     private FakeItemAdapterAdapter mAdapter;
 
@@ -50,7 +46,7 @@ public class SettingFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initViewModel() {
-        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
+        mViewModel = new ViewModelProvider(mActivity).get(MainViewModel.class);
     }
 
     @Override

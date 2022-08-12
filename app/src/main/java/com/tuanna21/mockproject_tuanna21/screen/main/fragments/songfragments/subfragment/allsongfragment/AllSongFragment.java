@@ -1,23 +1,21 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment;
 
-import android.os.Build;
-import android.util.Log;
-
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAllSongBinding;
-import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-public class AllSongFragment extends BaseFragment<MainActivityViewModel, FragmentAllSongBinding>
+public class AllSongFragment extends BaseFragment<MainViewModel, FragmentAllSongBinding>
         implements AllSongAdapter.SongClickListener {
 
     private AllSongAdapter mAdapter;
 
-    private String TAG = "AllSongFragmentListener";
+    private final String TAG = AllSongFragment.class.getSimpleName();
 
     @Override
     protected void initData() {
@@ -31,7 +29,7 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initObserver() {
-        mViewModel.getSongs().observe(mActivity, songs -> {
+        mViewModel.getCurrentPlayingSongList().observe(mActivity, songs -> {
             mAdapter.setData(songs);
         });
     }
@@ -42,7 +40,7 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initViewModel() {
-        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
+        mViewModel = new ViewModelProvider(mActivity).get(MainViewModel.class);
     }
 
     @Override
@@ -52,12 +50,8 @@ public class AllSongFragment extends BaseFragment<MainActivityViewModel, Fragmen
 
     @Override
     protected void initYourView() {
-        mBinding.rcvSong.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mBinding.rcvSong.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false));
         mBinding.rcvSong.setAdapter(mAdapter);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBinding.rcvSong.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> Log.i(TAG, "onScrollChange: " + "\nscrollX: " + scrollX + "\nscrollY: " + scrollY + "\noldScrollX: " + oldScrollX + "\noldScrollY: " + oldScrollY));
-        }
     }
 
     @Override

@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAlbumBinding;
-import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-public class AlbumFragment extends BaseFragment<MainActivityViewModel, FragmentAlbumBinding> {
+public class AlbumFragment extends BaseFragment<MainViewModel, FragmentAlbumBinding> {
     @Override
     protected void initData() {
 
@@ -30,7 +30,7 @@ public class AlbumFragment extends BaseFragment<MainActivityViewModel, FragmentA
 
     @Override
     protected void initViewModel() {
-        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
+        mViewModel = new ViewModelProvider(mActivity).get(MainViewModel.class);
     }
 
     @Override

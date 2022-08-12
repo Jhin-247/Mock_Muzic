@@ -9,9 +9,9 @@ import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentHomeBinding;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.homefragment.homefragmentadapter.HomeMainAdapter;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongAdapter;
-import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainActivityViewModel;
+import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-public class HomeFragment extends BaseFragment<MainActivityViewModel, FragmentHomeBinding> implements AllSongAdapter.SongClickListener {
+public class HomeFragment extends BaseFragment<MainViewModel, FragmentHomeBinding> implements AllSongAdapter.SongClickListener {
     private HomeMainAdapter mAdapter;
 
     @Override
@@ -27,7 +27,7 @@ public class HomeFragment extends BaseFragment<MainActivityViewModel, FragmentHo
 
     @Override
     protected void initObserver() {
-        mViewModel.getSongs().observe(getViewLifecycleOwner(), songs -> mAdapter.setData(songs));
+        mViewModel.getCurrentPlayingSongList().observe(getViewLifecycleOwner(), songs -> mAdapter.setData(songs));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class HomeFragment extends BaseFragment<MainActivityViewModel, FragmentHo
 
     @Override
     protected void initViewModel() {
-        mViewModel = new ViewModelProvider(mActivity).get(MainActivityViewModel.class);
+        mViewModel = new ViewModelProvider(mActivity).get(MainViewModel.class);
     }
 
     @Override
