@@ -55,7 +55,7 @@ public class PlaylistMainAdapter extends BaseAdapter<ItemMainPlaylistBinding, So
     @Override
     protected void bindView(ItemMainPlaylistBinding binding, int position) {
         int type = getItemViewType(position);
-        Song song = getItemAt(position);
+//        Song song = getItemAt(position);
         switch (type) {
             case TYPE_DEFAULT:
                 binding.tvPlaylistName.setVisibility(View.GONE);

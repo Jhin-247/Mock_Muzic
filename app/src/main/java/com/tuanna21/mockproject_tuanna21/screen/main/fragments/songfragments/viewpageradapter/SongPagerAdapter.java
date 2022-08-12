@@ -10,11 +10,9 @@ import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.sub
 
 public class SongPagerAdapter extends FragmentStateAdapter {
 
-    private final AllSongFragment mAllSongFragment;
 
     public SongPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        mAllSongFragment = new AllSongFragment();
     }
 
     @NonNull
@@ -22,7 +20,7 @@ public class SongPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return mAllSongFragment;
+                return new AllSongFragment();
             case 1:
                 return new PlaylistFragment();
         }
