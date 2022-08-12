@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.AlbumFragment;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.ArtistFragment;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.genresfragment.GenresFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.PlaylistFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongFragment;
 
@@ -23,8 +26,13 @@ public class SongPagerAdapter extends FragmentStateAdapter {
                 return new AllSongFragment();
             case 1:
                 return new PlaylistFragment();
+            case 2:
+                return new AlbumFragment();
+            case 3:
+                return new ArtistFragment();
+            default:
+                return new GenresFragment();
         }
-        return new AllSongFragment();
     }
 
     public String getTitleAt(int position) {
@@ -44,6 +52,6 @@ public class SongPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 5;
     }
 }

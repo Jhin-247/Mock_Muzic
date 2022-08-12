@@ -4,7 +4,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/main_theme_color">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_genres"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

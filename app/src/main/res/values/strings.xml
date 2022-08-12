@@ -45,4 +45,14 @@
     <string name="timer">%1$s | %2$s</string>
     <string name="album">Album - %1$s</string>
 
+    <string name="genres_classical">Classical</string>
+    <string name="genres_pop">Pop</string>
+    <string name="genres_hip_hop">Hip - Hop</string>
+    <string name="genres_rock">Rock</string>
+    <string name="genres_soul_and_r_and_b">Soul and R&amp;B</string>
+    <string name="genres_instrumental">Instrumental</string>
+    <string name="genres_jazz">Jazz</string>
+    <string name="genres_country_music">Country Music</string>
+    <string name="genres_song_number">%1$d songs</string>
+
 </resources>

@@ -6,6 +6,7 @@ import android.os.HandlerThread;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
+import com.tuanna21.mockproject_tuanna21.data.model.Genres;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
 
@@ -15,11 +16,13 @@ import java.util.List;
 public class Repository {
     private static Repository sInstance;
     private final SongRepository mSongRepository;
+    private final GenresRepository mGenresRepository;
 
     private final Handler mHandler;
 
     private Repository() {
         mSongRepository = SongRepository.getInstance();
+        mGenresRepository = GenresRepository.getInstance();
         HandlerThread mHandlerThread = new HandlerThread("repository_thread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -30,10 +33,6 @@ public class Repository {
             sInstance = new Repository();
         }
         return sInstance;
-    }
-
-    public SongRepository getSongRepository() {
-        return mSongRepository;
     }
 
     public void loadSettingScreenData(Context context, Callback<List<NavigationItem>> callback) {
@@ -73,13 +72,24 @@ public class Repository {
         });
     }
 
-    public void loadSong(Context context,Callback<List<Song>> callback) {
+    public void loadSong(Context context, Callback<List<Song>> callback) {
         mHandler.post(() -> {
             try {
                 List<Song> mSongList = mSongRepository.loadSong(context.getApplicationContext());
                 callback.success(mSongList);
             } catch (Exception e) {
                 callback.error(e);
+            }
+        });
+    }
+
+    public void loadGenres(Context context, Callback<List<Genres>> callback) {
+        mHandler.post(() -> {
+            try {
+                List<Genres> mGenres = mGenresRepository.getSongGenres(context);
+                callback.success(mGenres);
+            } catch (Exception exception) {
+                callback.error(exception);
             }
         });
     }

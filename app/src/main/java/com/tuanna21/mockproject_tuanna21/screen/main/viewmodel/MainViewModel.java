@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
+import com.tuanna21.mockproject_tuanna21.data.model.Genres;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.data.repository.Repository;
@@ -27,6 +28,8 @@ public class MainViewModel extends ViewModel implements SongObserver {
     private MutableLiveData<List<NavigationItem>> mSettingItems;
     private MutableLiveData<List<NavigationItem>> mNavigationItems;
     private MutableLiveData<Boolean> mIsPlaying;
+
+    private MutableLiveData<List<Genres>> mListGenres;
 
     private MutableLiveData<BottomPlayBarStatus> mBottomStatus;
 
@@ -49,6 +52,7 @@ public class MainViewModel extends ViewModel implements SongObserver {
         mNavigationItems = new MutableLiveData<>();
         mIsPlaying = new MutableLiveData<>();
         mBottomStatus = new MutableLiveData<>(BottomPlayBarStatus.HIDE);
+        mListGenres = new MutableLiveData<>();
 
         mHandlerThread = new HandlerThread("main_view_model");
         mHandlerThread.start();
@@ -78,6 +82,7 @@ public class MainViewModel extends ViewModel implements SongObserver {
         mPlayerController.addObserver(this);
         loadNavigationItems(context);
         loadSettingItems(context);
+        loadGenres(context);
     }
 
     private void loadNavigationItems(Context context) {
@@ -112,6 +117,22 @@ public class MainViewModel extends ViewModel implements SongObserver {
                     }
                 }
         );
+    }
+
+    private void loadGenres(Context context) {
+        mAppRepository.loadGenres(
+                context.getApplicationContext(),
+                new Callback<List<Genres>>() {
+                    @Override
+                    public void success(List<Genres> data) {
+                        mListGenres.postValue(data);
+                    }
+
+                    @Override
+                    public void error(Exception exception) {
+                        exception.printStackTrace();
+                    }
+                });
     }
 
     public void loadSong(Context context) {
@@ -263,7 +284,11 @@ public class MainViewModel extends ViewModel implements SongObserver {
         return mIsPlaying;
     }
 
-    public int getLastTabId(){
+    public LiveData<List<Genres>> getGenresList(){
+        return mListGenres;
+    }
+
+    public int getLastTabId() {
         return mLastId;
     }
 

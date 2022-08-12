@@ -17,10 +17,14 @@
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Mock_Muzic/app/src/main/res/menu/main_menu.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/activity_main_2.xml" value="0.19895833333333332" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_album.xml" value="0.17777777777777778" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_all_song.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_artist.xml" value="0.17777777777777778" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_genres.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_song.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_song_playing.xml" value="0.33" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_all_song.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_genres.xml" value="0.17777777777777778" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/layout_bottom_player.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/layout_music_controll.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/notification_player.xml" value="0.2" />
