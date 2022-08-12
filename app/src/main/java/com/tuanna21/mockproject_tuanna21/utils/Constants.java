@@ -9,6 +9,9 @@ public class Constants {
 
         // query
         public static final String HAS_DATABASE = "has_database";
+
+        // has data when open app
+        public static final String IS_ALIVE = "is_alive";
     }
 
 }

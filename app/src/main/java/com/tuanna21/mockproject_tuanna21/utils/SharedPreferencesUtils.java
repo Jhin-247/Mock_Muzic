@@ -1,6 +1,7 @@
 package com.tuanna21.mockproject_tuanna21.utils;
 
 import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.HAS_DATABASE;
+import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.IS_ALIVE;
 import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.SHARED_FILE_NAME;
 
 import android.content.Context;
@@ -27,6 +28,11 @@ public class SharedPreferencesUtils {
 
     public void saveBoolean(String key, boolean value) {
         mPref.edit().putBoolean(key, value).apply();
+    }
+
+    //todo kiểm tra App có đang sống không (được xử lý từ serivce)
+    public boolean isServiceAlive() {
+        return mPref.getBoolean(IS_ALIVE, false);
     }
 
     public boolean hasDatabaseData() {

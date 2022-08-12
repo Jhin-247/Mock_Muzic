@@ -43,5 +43,6 @@
     <string name="music_control_favourites">Favourites</string>
 
     <string name="timer">%1$s | %2$s</string>
+    <string name="album">Album - %1$s</string>
 
 </resources>
