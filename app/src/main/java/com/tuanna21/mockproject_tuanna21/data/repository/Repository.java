@@ -18,16 +18,16 @@ public class Repository {
 
     private final Handler mHandler;
 
-    private Repository(Context context) {
+    private Repository() {
         mSongRepository = SongRepository.getInstance();
         HandlerThread mHandlerThread = new HandlerThread("repository_thread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
     }
 
-    public static synchronized Repository getInstance(Context context) {
+    public static synchronized Repository getInstance() {
         if (sInstance == null) {
-            sInstance = new Repository(context);
+            sInstance = new Repository();
         }
         return sInstance;
     }

@@ -50,9 +50,7 @@ public class MyPlayer {
 
     public void play(Song song) {
         try {
-            if (mPlayer.isPlaying()) {
-                stopMusicAndRelease();
-            }
+            stopMusicAndRelease();
             mPlayer.setDataSource(song.getPath());
             mPlayer.prepare();
             mPlayer.start();

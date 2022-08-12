@@ -12,6 +12,7 @@ public class MyPlayerController implements SongCompleteListener {
     private List<Song> mCurrentSongs;
     private boolean mCanPlayNext, mCanPlayPrevious;
     private int mCurrentSongIndex = -1;
+
     private boolean isFirstTimeInit = true;
 
     private MyPlayerController() {
@@ -52,12 +53,6 @@ public class MyPlayerController implements SongCompleteListener {
         mPlayer.removeObserver(observer);
     }
 
-    public void setSongsToPlay(List<Song> songs) {
-        this.mCurrentSongs = songs;
-        mCurrentSongIndex = 0;
-        setCanPlayStatus(false, mCurrentSongIndex != (mCurrentSongs.size() - 1));
-    }
-
     public void playFromIndex(int index) {
         if (isFirstTimeInit) {
             this.mCurrentSongIndex = index;
@@ -69,11 +64,6 @@ public class MyPlayerController implements SongCompleteListener {
             setCanPlayStatus(mCurrentSongIndex != 0, mCurrentSongIndex != (mCurrentSongs.size() - 1));
             isFirstTimeInit = false;
         }
-    }
-
-    public void setSongsAndPlayFromIndex(List<Song> songs, int index) {
-        setSongsToPlay(songs);
-        playFromIndex(index);
     }
 
     private void setCanPlayStatus(boolean canPlayPrevious, boolean canPlayNext) {
@@ -112,6 +102,10 @@ public class MyPlayerController implements SongCompleteListener {
 
     public int getCurrentSongTimePosition() {
         return mPlayer.getCurrentSongTimePosition();
+    }
+
+    public int getCurrentSongIndex() {
+        return mCurrentSongIndex;
     }
 
     public void pause() {
