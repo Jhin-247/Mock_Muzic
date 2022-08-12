@@ -52,14 +52,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         initYourView();
     }
 
-    protected abstract void setupObserver();
-
     protected abstract void setupDataBinding();
-
-    protected abstract void setupAction();
-
     protected abstract void setupViewModel();
-
+    protected abstract void setupAction();
+    protected abstract void setupObserver();
     protected abstract void initYourView();
 
     protected void setupFullScreen() {
@@ -67,17 +63,5 @@ public abstract class BaseActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
-    }
-
-    protected int getScreenHeight() {
-        return new ScreenUtils().getScreenHeight(this);
-    }
-
-    protected int getScreenWidth() {
-        return new ScreenUtils().getScreenWidth(this);
-    }
-
-    protected boolean hasDatabase() {
-        return SharedPreferencesUtils.getInstance(getApplicationContext()).hasDatabaseData();
     }
 }
