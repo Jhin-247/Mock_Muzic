@@ -99,18 +99,13 @@ public class SongPlayingFragment extends BaseFragment<MainViewModel, FragmentSon
             @Override
             public void run() {
                 mBinding.songPlayingView.post(() -> mBinding.songPlayingView.setProgress(mViewModel.getCurrentSongTime()));
-                mBinding.tvTimer.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mBinding.tvTimer.setText(
-                                mActivity.getString(
-                                        R.string.timer,
-                                        mViewModel.getFormatCurrentSongTime(mViewModel.getCurrentSongTime()),
-                                        mViewModel.getFormatCurrentSongTime(mViewModel.getCurrentSongTotalDuration())
-                                )
-                        );
-                    }
-                });
+                mBinding.tvTimer.post(() -> mBinding.tvTimer.setText(
+                        mActivity.getString(
+                                R.string.timer,
+                                mViewModel.getFormatCurrentSongTime(mViewModel.getCurrentSongTime()),
+                                mViewModel.getFormatCurrentSongTime(mViewModel.getCurrentSongTotalDuration())
+                        )
+                ));
                 mHandler.postDelayed(this, 1);
             }
         });

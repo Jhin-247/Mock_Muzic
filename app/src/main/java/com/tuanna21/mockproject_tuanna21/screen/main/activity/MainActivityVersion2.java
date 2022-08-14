@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
@@ -94,12 +95,14 @@ public class MainActivityVersion2 extends BaseActivity implements
             mBinding.bottomPlay.tvSongArtist.setText(song.getArtist());
             mBinding.bottomPlay.skTime.setMax(Integer.parseInt(song.getDuration()));
 
+
             Glide.with(mBinding.bottomPlay.ivThumbnail).load(Uri.parse(song.getSongImage())).error(R.drawable.ic_empty_song).into(mBinding.bottomPlay.ivThumbnail);
         });
         mViewModel.getBottomStatus().observe(this, bottomPlayBarStatus -> {
             switch (bottomPlayBarStatus) {
                 case HIDE:
                     mBinding.bottomPlay.llBottom.setVisibility(View.GONE);
+                    Log.i(TAG, "setupObserver: " + "bottomPlayBarStatus:");
                     break;
                 case SHOW_AND_PLAY:
                 case SHOW_AND_PAUSE:
@@ -221,6 +224,15 @@ public class MainActivityVersion2 extends BaseActivity implements
         if (mViewModel.canStartService(this)) {
             startService(mServiceIntent);
         }
+    }
+
+    @Override
+    public void onCloseServiceSong() {
+        if (mNavController.getCurrentDestination() != null)
+            if (mNavController.getCurrentDestination().getId() == R.id.songPlayingFragment){
+                onNavigateBack();
+            }
+        mViewModel.closeBottomPlay();
     }
 
     @Override

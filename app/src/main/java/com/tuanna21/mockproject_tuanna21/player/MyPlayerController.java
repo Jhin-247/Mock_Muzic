@@ -82,7 +82,6 @@ public class MyPlayerController implements SongCompleteListener {
     private void nextSong() {
         if (mCanPlayNext) {
             mCurrentSongIndex++;
-            stopMusicAndClear();
             mPlayer.play(mCurrentSongs.get(mCurrentSongIndex));
             setCanPlayStatus(true, mCurrentSongIndex != (mCurrentSongs.size() - 1));
         }
@@ -97,6 +96,9 @@ public class MyPlayerController implements SongCompleteListener {
     }
 
     public Song getCurrentSong() {
+        if (mCurrentSongIndex == -1) {
+            return null;
+        }
         return mCurrentSongs.get(mCurrentSongIndex);
     }
 
@@ -116,13 +118,18 @@ public class MyPlayerController implements SongCompleteListener {
         mPlayer.stopMusicAndRelease();
     }
 
+    public void clearControllerObservers() {
+        mPlayer.clearMyController();
+        mCurrentSongIndex = -1;
+    }
+
     public void resume() {
         mPlayer.resume();
     }
 
     @Override
     public void onSongComplete() {
-        if (mCanPlayNext && (getCurrentSongTimePosition() > Integer.parseInt(mCurrentSongs.get(mCurrentSongIndex).getDuration()) / 2)) {
+        if (mCanPlayNext && mCurrentSongIndex != -1 && (getCurrentSongTimePosition() > Integer.parseInt(mCurrentSongs.get(mCurrentSongIndex).getDuration()) / 2)) {
             nextSong();
         }
     }

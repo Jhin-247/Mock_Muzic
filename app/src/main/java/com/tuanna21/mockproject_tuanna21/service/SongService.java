@@ -3,10 +3,14 @@ package com.tuanna21.mockproject_tuanna21.service;
 import static com.tuanna21.mockproject_tuanna21.app.ApplicationController.NOTIFICATION_CHANNEL_ID;
 import static com.tuanna21.mockproject_tuanna21.utils.Constants.SharedPref.IS_ALIVE;
 
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -17,6 +21,7 @@ import androidx.core.app.NotificationCompat;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.player.MyPlayerController;
 import com.tuanna21.mockproject_tuanna21.player.SongObserver;
+import com.tuanna21.mockproject_tuanna21.receiver.ChargerReceiver;
 import com.tuanna21.mockproject_tuanna21.screen.main.activity.MainActivityVersion2;
 import com.tuanna21.mockproject_tuanna21.utils.SharedPreferencesUtils;
 
@@ -28,6 +33,8 @@ public class SongService extends Service implements SongObserver {
     private static final int ACTION_MISS_CLICK = 14;
     private static final String TAG = "SongService";
 
+    private ChargerReceiver mReceiver;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -37,7 +44,9 @@ public class SongService extends Service implements SongObserver {
     @Override
     public void onCreate() {
         super.onCreate();
+        mReceiver = new ChargerReceiver();
         MyPlayerController.getInstance().addObserver(this);
+        registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_POWER_CONNECTED));
     }
 
     @Override
@@ -91,8 +100,9 @@ public class SongService extends Service implements SongObserver {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        MyPlayerController.getInstance().clearControllerObservers();
         MyPlayerController.getInstance().removeObserver(this);
-        MyPlayerController.getInstance().stopMusicAndClear();
+        unregisterReceiver(mReceiver);
         //todo đánh dấu app đã chết hẳn
         SharedPreferencesUtils.getInstance(getApplicationContext()).saveBoolean(IS_ALIVE, false);
     }
@@ -149,5 +159,11 @@ public class SongService extends Service implements SongObserver {
     public void onSongUpdate() {
         updateNotification();
         Log.i(TAG, "onSongUpdate: from UI");
+    }
+
+    @Override
+    public void onCloseServiceSong() {
+        stopSelf();
+        stopForeground(true);
     }
 }

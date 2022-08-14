@@ -3,6 +3,7 @@ package com.tuanna21.mockproject_tuanna21.screen.main.viewmodel;
 import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -160,6 +161,13 @@ public class MainViewModel extends ViewModel implements SongObserver {
     }
 
     @Override
+    public void onCloseServiceSong() {
+        mIsPlaying.setValue(false);
+        mBottomStatus.setValue(BottomPlayBarStatus.HIDE);
+        Log.i(TAG, "onCloseServiceSong: " + mBottomStatus.getValue());
+    }
+
+    @Override
     protected void onCleared() {
         super.onCleared();
         mPlayerController.removeObserver(this);
@@ -212,6 +220,9 @@ public class MainViewModel extends ViewModel implements SongObserver {
     }
 
     public int getCurrentSongTotalDuration() {
+        if (mPlayerController.getCurrentSong() == null) {
+            return 0;
+        }
         return Integer.parseInt(mPlayerController.getCurrentSong().getDuration());
     }
 
@@ -284,7 +295,7 @@ public class MainViewModel extends ViewModel implements SongObserver {
         return mIsPlaying;
     }
 
-    public LiveData<List<Genres>> getGenresList(){
+    public LiveData<List<Genres>> getGenresList() {
         return mListGenres;
     }
 

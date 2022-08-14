@@ -75,6 +75,18 @@ public class MyPlayer {
         mPlayer.reset();
     }
 
+    //Todo dùng để tắt nhạc và đồng bộ controller
+    public void clearMyController(){
+        stopMusicAndRelease();
+        clearSongsForObservers();
+    }
+
+    private void clearSongsForObservers() {
+        for(SongObserver observer : mObservers){
+            observer.onCloseServiceSong();
+        }
+    }
+
     public void resume() {
         try {
             if (!mPlayer.isPlaying()) {
