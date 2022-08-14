@@ -57,7 +57,7 @@ public class MainActivityVersion2 extends BaseActivity implements
     @Override
     protected void setupViewModel() {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        mViewModel.loadDataAndSetupMusicObserver(this);
+        mViewModel.loadDataWithoutPermission(this);
     }
 
     @Override

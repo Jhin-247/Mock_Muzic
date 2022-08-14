@@ -44,6 +44,7 @@
 
     <string name="timer">%1$s | %2$s</string>
     <string name="album">Album - %1$s</string>
+    <string name="album_number">%1$d albums</string>
 
     <string name="genres_classical">Classical</string>
     <string name="genres_pop">Pop</string>

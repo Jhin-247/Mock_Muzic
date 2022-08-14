@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
 import com.tuanna21.mockproject_tuanna21.data.model.Album;
+import com.tuanna21.mockproject_tuanna21.data.model.Artist;
 import com.tuanna21.mockproject_tuanna21.data.model.Genres;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
@@ -32,7 +33,7 @@ public class MainViewModel extends ViewModel implements SongObserver {
     private MutableLiveData<Boolean> mIsPlaying;
     private MutableLiveData<List<Genres>> mListGenres;
     private MutableLiveData<List<Album>> mListAlbums;
-
+    private MutableLiveData<List<Artist>> mArtists;
     private MutableLiveData<BottomPlayBarStatus> mBottomStatus;
     private MutableLiveData<Album> mAlbumDetail;
 
@@ -58,6 +59,7 @@ public class MainViewModel extends ViewModel implements SongObserver {
         mListGenres = new MutableLiveData<>();
         mListAlbums = new MutableLiveData<>();
         mAlbumDetail = new MutableLiveData<>();
+        mArtists = new MutableLiveData<>();
 
         mHandlerThread = new HandlerThread("main_view_model");
         mHandlerThread.start();
@@ -83,11 +85,12 @@ public class MainViewModel extends ViewModel implements SongObserver {
         }
     }
 
-    public void loadDataAndSetupMusicObserver(Context context) {
+    public void loadDataWithoutPermission(Context context) {
         mPlayerController.addObserver(this);
         loadNavigationItems(context);
         loadSettingItems(context);
         loadGenres(context);
+        loadArtist(context);
     }
 
     public void loadData(Context context) {
@@ -143,6 +146,20 @@ public class MainViewModel extends ViewModel implements SongObserver {
                         exception.printStackTrace();
                     }
                 });
+    }
+
+    private void loadArtist(Context context) {
+        mAppRepository.loadArtists(context, new Callback<List<Artist>>() {
+            @Override
+            public void success(List<Artist> data) {
+                mArtists.postValue(data);
+            }
+
+            @Override
+            public void error(Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
     private void loadSong(Context context) {
@@ -336,6 +353,10 @@ public class MainViewModel extends ViewModel implements SongObserver {
 
     public LiveData<Album> getAlbumDetail() {
         return mAlbumDetail;
+    }
+
+    public LiveData<List<Artist>> getArtists() {
+        return mArtists;
     }
 
     public int getLastTabId() {

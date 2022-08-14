@@ -7,6 +7,7 @@ import android.os.HandlerThread;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
 import com.tuanna21.mockproject_tuanna21.data.model.Album;
+import com.tuanna21.mockproject_tuanna21.data.model.Artist;
 import com.tuanna21.mockproject_tuanna21.data.model.Genres;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
@@ -19,6 +20,7 @@ public class Repository {
     private final SongRepository mSongRepository;
     private final GenresRepository mGenresRepository;
     private final AlbumRepository mAlbumRepository;
+    private final ArtistRepository mArtistRepository;
 
     private final Handler mHandler;
 
@@ -26,6 +28,7 @@ public class Repository {
         mSongRepository = SongRepository.getInstance();
         mGenresRepository = GenresRepository.getInstance();
         mAlbumRepository = AlbumRepository.getInstance();
+        mArtistRepository = ArtistRepository.getInstance();
         HandlerThread mHandlerThread = new HandlerThread("repository_thread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -104,6 +107,21 @@ public class Repository {
                 callback.success(mAlbums);
             } catch (Exception exception) {
                 callback.error(exception);
+            }
+        });
+    }
+
+    public void loadArtists(Context context, Callback<List<Artist>> callback) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<Artist> mArtists = mArtistRepository.getFakeArtists(context);
+                    callback.success(mArtists);
+                } catch (Exception exception) {
+                    callback.error(exception);
+                }
+
             }
         });
     }
