@@ -53,6 +53,6 @@ public class GenresAdapter extends BaseAdapter<ItemGenresBinding, Genres> {
             }
         });
         binding.tvGenresName.setText(genres.getName());
-        binding.tvGenresSongNumber.setText(mActivity.getString(R.string.genres_song_number, genres.getSongNumber()));
+        binding.tvGenresSongNumber.setText(mActivity.getString(R.string.song_number, genres.getSongNumber()));
     }
 }

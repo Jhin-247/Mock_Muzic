@@ -96,4 +96,18 @@ public class SongUtils {
             }
         }
     }
+
+    public static String getFormatCurrentSongTime(int time) {
+        String mResult;
+        int mTime = time / 1000;
+        int mSecond = mTime % 60;
+        if (mSecond < 10) {
+            mResult = ":0" + mSecond;
+        } else {
+            mResult = ":" + mSecond;
+        }
+        mResult = mTime / 60 + mResult;
+        return mResult;
+    }
+
 }

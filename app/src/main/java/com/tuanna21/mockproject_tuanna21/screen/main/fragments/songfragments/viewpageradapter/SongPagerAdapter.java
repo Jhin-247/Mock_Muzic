@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.AlbumFragment;
+import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.albumfragment.AlbumFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.ArtistFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.genresfragment.GenresFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.PlaylistFragment;

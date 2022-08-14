@@ -6,6 +6,7 @@ import android.os.HandlerThread;
 
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.Callback;
+import com.tuanna21.mockproject_tuanna21.data.model.Album;
 import com.tuanna21.mockproject_tuanna21.data.model.Genres;
 import com.tuanna21.mockproject_tuanna21.data.model.NavigationItem;
 import com.tuanna21.mockproject_tuanna21.data.model.Song;
@@ -17,12 +18,14 @@ public class Repository {
     private static Repository sInstance;
     private final SongRepository mSongRepository;
     private final GenresRepository mGenresRepository;
+    private final AlbumRepository mAlbumRepository;
 
     private final Handler mHandler;
 
     private Repository() {
         mSongRepository = SongRepository.getInstance();
         mGenresRepository = GenresRepository.getInstance();
+        mAlbumRepository = AlbumRepository.getInstance();
         HandlerThread mHandlerThread = new HandlerThread("repository_thread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
@@ -88,6 +91,17 @@ public class Repository {
             try {
                 List<Genres> mGenres = mGenresRepository.getSongGenres(context);
                 callback.success(mGenres);
+            } catch (Exception exception) {
+                callback.error(exception);
+            }
+        });
+    }
+
+    public void loadAlbums(Context context, Callback<List<Album>> callback) {
+        mHandler.post(() -> {
+            try {
+                List<Album> mAlbums = mAlbumRepository.getFakesAlbums(context);
+                callback.success(mAlbums);
             } catch (Exception exception) {
                 callback.error(exception);
             }

@@ -53,6 +53,12 @@
     <string name="genres_instrumental">Instrumental</string>
     <string name="genres_jazz">Jazz</string>
     <string name="genres_country_music">Country Music</string>
-    <string name="genres_song_number">%1$d songs</string>
+    <string name="song_number">%1$d songs</string>
+    <string name="play">Play</string>
+    <string name="share">Share</string>
+    <string name="add_to_favourite">Add to favourite</string>
+    <string name="album_detail">Album Detail</string>
+    <string name="billie_jean">Billie Jean</string>
+    <string name="_4_13">4:13</string>
 
 </resources>

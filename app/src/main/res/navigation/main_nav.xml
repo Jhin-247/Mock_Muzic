@@ -14,7 +14,8 @@
         android:id="@+id/songFragment"
         android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.SongFragment"
         android:label="fragment_song"
-        tools:layout="@layout/fragment_song" />
+        tools:layout="@layout/fragment_song" >
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.settingfragment.SettingFragment"
@@ -25,4 +26,8 @@
         android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.SongPlayingFragment"
         android:label="fragment_song_playing"
         tools:layout="@layout/fragment_song_playing" />
+    <fragment
+        android:id="@+id/albumDetailFragment"
+        android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.albumfragment.detail.AlbumDetailFragment"
+        android:label="AlbumDetailFragment" />
 </navigation>

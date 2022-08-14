@@ -68,7 +68,7 @@ public class MainActivityVersion2 extends BaseActivity implements
             if (mViewModel.checkIsLived(this)) {
                 mViewModel.setupReopenAppDataWhilePlaying();
             } else {
-                mViewModel.loadSong(this);
+                mViewModel.loadData(this);
             }
         }
     }
@@ -76,7 +76,7 @@ public class MainActivityVersion2 extends BaseActivity implements
     @Override
     protected void onPermissionRequested(Boolean result) {
         if (result) {
-            mViewModel.loadSong(this);
+            mViewModel.loadData(this);
         }
     }
 
