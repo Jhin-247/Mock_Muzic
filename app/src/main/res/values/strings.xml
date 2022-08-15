@@ -65,5 +65,12 @@
     <string name="_2019">2019</string>
     <string name="top_album">Top Albums</string>
     <string name="top_songs">Top songs</string>
+    <string name="history">History</string>
+    <string name="michael_jackson">Michael Jackson</string>
+    <string name="beyonce">Beyonce</string>
+    <string name="bebe_rexha">Bebe Rexha</string>
+    <string name="maroon_5">Maroon 5</string>
+    <string name="queen">Queens</string>
+    <string name="yani">Yani</string>
 
 </resources>

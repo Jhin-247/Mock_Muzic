@@ -56,15 +56,15 @@ public class AlbumRepository {
         List<Album> mAlbums = new ArrayList<>();
         mAlbums.add(new Album(
                 1,
-                "History",
-                "Michael Jackson",
+                context.getString(R.string.history),
+                context.getString(R.string.michael_jackson),
                 10,
                 R.drawable.album_1
         ));
         mAlbums.add(new Album(
                 1,
-                "History",
-                "Michael Jackson",
+                context.getString(R.string.history),
+                context.getString(R.string.michael_jackson),
                 10,
                 R.drawable.album_2
         ));

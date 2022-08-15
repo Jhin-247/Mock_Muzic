@@ -25,42 +25,42 @@ public class ArtistRepository {
     public List<Artist> getFakeArtists(Context context) {
         List<Artist> mArtist = new ArrayList<>();
         mArtist.add(new Artist(
-                "Beyonce",
+                context.getString(R.string.beyonce),
                 4,
                 "",
                 R.drawable.ic_beyonce,
                 38
         ));
         mArtist.add(new Artist(
-                "Bebe Rexha",
+                context.getString(R.string.bebe_rexha),
                 2,
                 "",
                 R.drawable.ic_bebe_rexha,
                 17
         ));
         mArtist.add(new Artist(
-                "Maroon 5",
+                context.getString(R.string.maroon_5),
                 5,
                 "",
                 R.drawable.ic_marron_5,
                 46
         ));
         mArtist.add(new Artist(
-                "Michael Jackson",
+                context.getString(R.string.michael_jackson),
                 10,
                 "",
                 R.drawable.ic_michael_jackson,
                 112
         ));
         mArtist.add(new Artist(
-                "Queens",
+                context.getString(R.string.queen),
                 3,
                 "",
                 R.drawable.ic_queen,
                 32
         ));
         mArtist.add(new Artist(
-                "Yani",
+                context.getString(R.string.yani),
                 1,
                 "",
                 R.drawable.ic_yani,
