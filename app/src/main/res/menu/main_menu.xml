@@ -17,4 +17,8 @@
     <item
         android:id="@+id/songPlayingFragment"
         android:visible="false" />
+
+    <item
+        android:id="@+id/artistDetailFragment"
+        android:visible="false"/>
 </menu>

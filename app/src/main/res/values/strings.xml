@@ -61,5 +61,9 @@
     <string name="album_detail">Album Detail</string>
     <string name="billie_jean">Billie Jean</string>
     <string name="_4_13">4:13</string>
+    <string name="artist_detail">Artist Detail</string>
+    <string name="_2019">2019</string>
+    <string name="top_album">Top Albums</string>
+    <string name="top_songs">Top songs</string>
 
 </resources>

@@ -211,6 +211,7 @@ public class MainActivityVersion2 extends BaseActivity implements
 
     @Override
     public void onNavigateBack() {
+        Log.i(TAG, "onNavigateBack: ");
         mBinding.bottomNavigation.setSelectedItemId(mViewModel.getLastTabId());
     }
 

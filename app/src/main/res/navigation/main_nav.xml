@@ -30,4 +30,8 @@
         android:id="@+id/albumDetailFragment"
         android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.albumfragment.detail.AlbumDetailFragment"
         android:label="AlbumDetailFragment" />
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.artistfragment.detail.ArtistDetailFragment"
+        android:label="ArtistDetailFragment" />
 </navigation>

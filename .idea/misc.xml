@@ -29,6 +29,7 @@
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_album_detail.xml" value="0.2073342736248237" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_all_song.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_artist.xml" value="0.17777777777777778" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_artist_detail.xml" value="0.35555555555555557" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_genres.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_song.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/fragment_song_playing.xml" value="0.33" />
@@ -37,6 +38,9 @@
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_all_song.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_artists.xml" value="0.33" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_genres.xml" value="0.17777777777777778" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_home.xml" value="0.17777777777777778" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_home_main.xml" value="0.17777777777777778" />
+        <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/item_top_album.xml" value="0.25" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/layout_bottom_player.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/layout_music_controll.xml" value="0.2" />
         <entry key="..\:/WorkSpace/FPT/TuanNA21/Rework/Mock_Muzic/app/src/main/res/layout/notification_player.xml" value="0.2" />

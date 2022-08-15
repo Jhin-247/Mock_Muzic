@@ -1,6 +1,5 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.artistfragment;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,14 +11,13 @@ import com.tuanna21.mockproject_tuanna21.databinding.FragmentArtistBinding;
 import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-import java.util.List;
-
-public class ArtistFragment extends BaseFragment<MainViewModel, FragmentArtistBinding> {
+public class ArtistFragment extends BaseFragment<MainViewModel, FragmentArtistBinding> implements ArtistAdapter.ArtistClickListener {
     private ArtistAdapter mAdapter;
 
     @Override
     protected void initData() {
         mAdapter = new ArtistAdapter(mActivity);
+        mAdapter.setListener(this);
     }
 
     @Override
@@ -52,5 +50,10 @@ public class ArtistFragment extends BaseFragment<MainViewModel, FragmentArtistBi
         mBinding.rcvArtists.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false));
         mBinding.rcvArtists.addItemDecoration(new VerticalSpaceItemDecoration(10));
         mBinding.rcvArtists.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onArtistClick(Artist artist) {
+        mFragmentChangeListener.changeFragment(R.id.artistDetailFragment);
     }
 }

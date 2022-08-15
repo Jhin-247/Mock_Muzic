@@ -227,6 +227,16 @@ public class MainViewModel extends ViewModel implements SongObserver {
         mHandler.postDelayed(() -> {
             if (id == R.id.songPlayingFragment) {
                 mBottomStatus.postValue(BottomPlayBarStatus.HIDE);
+            } else if (id == R.id.albumDetailFragment) {
+                if (mIsCloseByUser) {
+                    mBottomStatus.postValue(BottomPlayBarStatus.HIDE);
+                } else if (mPlayerController.isPlaying()) {
+                    mBottomStatus.postValue(BottomPlayBarStatus.SHOW_AND_PLAY);
+                } else if (mPlayerController.hasData()) {
+                    mBottomStatus.postValue(BottomPlayBarStatus.SHOW_AND_PAUSE);
+                } else {
+                    mBottomStatus.postValue(BottomPlayBarStatus.HIDE);
+                }
             } else {
                 mLastId = id;
                 if (mIsCloseByUser) {
