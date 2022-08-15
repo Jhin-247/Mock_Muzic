@@ -1,5 +1,6 @@
 package com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.albumfragment.detail;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,17 @@ import com.tuanna21.mockproject_tuanna21.utils.SongUtils;
 
 public class AlbumDetailAdapter extends BaseAdapter<ItemAlbumDetailBinding, Song> {
     private int chosenSong;
+    private OnSongClick mListener;
 
     public AlbumDetailAdapter(Activity mActivity) {
         super(mActivity);
         chosenSong = 0;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setListener(OnSongClick mClick) {
+        this.mListener = mClick;
+        notifyDataSetChanged();
     }
 
     public void setCurrentSong(Song song) {
@@ -49,5 +57,13 @@ public class AlbumDetailAdapter extends BaseAdapter<ItemAlbumDetailBinding, Song
         }
         binding.tvSongName.setText(song.getTitle());
         binding.tvDuration.setText(SongUtils.getFormatCurrentSongTime(Integer.parseInt(song.getDuration())));
+        binding.getRoot().setOnClickListener(v -> {
+            if (mListener != null)
+                mListener.onSongClick(song);
+        });
+    }
+
+    public interface OnSongClick {
+        void onSongClick(Song song);
     }
 }

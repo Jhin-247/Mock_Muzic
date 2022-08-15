@@ -15,16 +15,18 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.tuanna21.mockproject_tuanna21.R;
 import com.tuanna21.mockproject_tuanna21.base.BaseFragment;
+import com.tuanna21.mockproject_tuanna21.data.model.Song;
 import com.tuanna21.mockproject_tuanna21.databinding.FragmentAlbumDetailBinding;
 import com.tuanna21.mockproject_tuanna21.itemdecorator.VerticalSpaceItemDecoration;
 import com.tuanna21.mockproject_tuanna21.screen.main.viewmodel.MainViewModel;
 
-public class AlbumDetailFragment extends BaseFragment<MainViewModel, FragmentAlbumDetailBinding> {
+public class AlbumDetailFragment extends BaseFragment<MainViewModel, FragmentAlbumDetailBinding> implements AlbumDetailAdapter.OnSongClick {
     private AlbumDetailAdapter mAdapter;
 
     @Override
     protected void initData() {
         mAdapter = new AlbumDetailAdapter(mActivity);
+        mAdapter.setListener(this);
     }
 
     @Override
@@ -77,5 +79,10 @@ public class AlbumDetailFragment extends BaseFragment<MainViewModel, FragmentAlb
         mBinding.rcvSongs.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mBinding.rcvSongs.addItemDecoration(new VerticalSpaceItemDecoration(10));
         mBinding.rcvSongs.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onSongClick(Song song) {
+        mViewModel.playSong(song);
     }
 }
