@@ -91,6 +91,7 @@ public class MainViewModel extends ViewModel implements SongObserver {
         loadSettingItems(context);
         loadGenres(context);
         loadArtist(context);
+        loadAlbum(context);
     }
 
     public void loadData(Context context) {
