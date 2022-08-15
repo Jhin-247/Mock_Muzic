@@ -11,28 +11,26 @@ import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.sub
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.playlistfragment.PlaylistFragment;
 import com.tuanna21.mockproject_tuanna21.screen.main.fragments.songfragments.subfragment.allsongfragment.AllSongFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SongPagerAdapter extends FragmentStateAdapter {
 
-
+    private final List<Fragment> mListFragments;
     public SongPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+        mListFragments = new ArrayList<>();
+        mListFragments.add(new AllSongFragment());
+        mListFragments.add(new PlaylistFragment());
+        mListFragments.add(new AlbumFragment());
+        mListFragments.add(new ArtistFragment());
+        mListFragments.add(new GenresFragment());
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return new AllSongFragment();
-            case 1:
-                return new PlaylistFragment();
-            case 2:
-                return new AlbumFragment();
-            case 3:
-                return new ArtistFragment();
-            default:
-                return new GenresFragment();
-        }
+        return mListFragments.get(position);
     }
 
     public String getTitleAt(int position) {
@@ -52,6 +50,6 @@ public class SongPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return mListFragments.size();
     }
 }
